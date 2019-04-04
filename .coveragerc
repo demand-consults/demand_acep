@@ -1,7 +1,7 @@
 [run]
 branch = True
-source = shablona/*
-include = shablona/*
+source = demand_acep/*
+include = demand_acep/*
 omit = */setup.py
 [report]
-include = shablona/*
+include = demand_acep/*
