@@ -14,7 +14,7 @@ install:
 - travis_retry pip install -r requirements.txt
 
 script:
-- py.test --pyargs battdeg --cov-report term-missing --cov=demand_acep
+- py.test --pyargs demand_acep --cov-report term-missing --cov=demand_acep
 - coverage report
 
 after_success:
