@@ -1,10 +1,6 @@
 language: python
 sudo: false
 
-deploy:
-  provider: pypi
-
-
 env:
   global:
     - PIP_DEPS="pytest coveralls pytest-cov flake8"
@@ -12,17 +8,15 @@ env:
 python:
   - '3.6'
 
-
 install:
+- pip install -U tox-travis coverage coveralls
 - travis_retry pip install $PIP_DEPS
 - travis_retry pip install -r requirements.txt
-- travis_retry pip install -e .
 
 script:
-- flake8 --ignore N802,N806 `find . -name \*.py | grep -v setup.py | grep -v version.py | grep -v __init__.py | grep -v /doc/`
-- mkdir for_test
-- cd for_test
 - py.test --pyargs demand_acep --cov-report term-missing --cov=demand_acep
+- coverage report
 
 after_success:
+- ls -a
 - coveralls

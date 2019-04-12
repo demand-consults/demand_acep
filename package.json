@@ -1,0 +1,28 @@
+{
+  "name": "demand_acep",
+  "version": "1.0.0",
+  "description": "## More documentation coming soon.",
+  "main": "gruntfile.js",
+  "directories": {
+    "doc": "doc",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chintanp/demand_acep.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chintanp/demand_acep/issues"
+  },
+  "homepage": "https://github.com/chintanp/demand_acep#readme",
+  "dependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-shell": "^3.0.1"
+  }
+}
