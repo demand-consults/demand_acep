@@ -14,7 +14,7 @@ One to two paragraph statement about your product and what it does.
 Linux:
 
 ```sh
-pip install demand_aceep
+pip install demand_acep
 ```
 
 
