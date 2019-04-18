@@ -3,7 +3,7 @@
 # demand_acep
 > Python package to help reduce demand charges.
 
-[![Known Vulnerabilities](https://snyk.io/test/github/chintanp/demand_acep/badge.svg)](https://snyk.io/test/github/chintanp/demand_acep)   [![Build Status](https://travis-ci.com/chintanp/demand_acep.svg?branch=master)](https://travis-ci.com/chintanp/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/chintanp/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/chintanp/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest) <a href="https://github.com/ambv/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a> [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chintanp/demand_acep/master)
+[![Build Status](https://travis-ci.com/chintanp/demand_acep.svg?branch=master)](https://travis-ci.com/chintanp/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/chintanp/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/chintanp/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest) <a href="https://github.com/ambv/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a> [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chintanp/demand_acep/master)
 
 One to two paragraph statement about your product and what it does.
 
