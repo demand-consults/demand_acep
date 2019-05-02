@@ -3,28 +3,28 @@ This is the place for all the unit tests for the package demand_acep.
 We can refactor this if this becomes too large.
 
 """
+# %% Imports
 
-import pandas as pd
-import numpy as np
 import os
 import sys
-import re
-from os import listdir
-from os.path import isfile, join
-import pytest # automatic test finder and test runner
-
+import numpy as np
+import pdb
 
 # To import files from the parent directory
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from demand_acep import hello_world
-from read_NetCDF import extract_data
-from read_NetCDF import extract_ppty
-
+from demand_acep import extract_data
+from demand_acep import extract_ppty
+# %% Paths
+# os.chdir('..')
 
 def test_extract_data():
-    dirpath = '/Volumes/GoogleDrive/My Drive/ACEP/Data/2018/07/01'
-    filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-01T081005Z@P1D@PT151F.nc'
+
+    path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    # path = '/Users/Tinu/Dropbox/demand_acep/demand_acep'
+    # path = '.'
+    dirpath = os.path.join(path, '/data/measurements/2018/07/01')
+    filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
     [test_time, test_values] = extract_data(dirpath, filename)
 
     assert (test_time.dtype == 'timedelta64[ns]'), "The first output from this function should be a timedelta object"
@@ -36,7 +36,7 @@ def test_extract_data():
 
 def test_extract_ppty():
     meter_name = ['PkFltM1Ant', 'PkFltM2Tel', 'PkFltM3Sci', 'PQube3']
-    filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-01T081005Z@P1D@PT151F.nc'
+    filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
     [test_meter, test_channel] = extract_ppty(filename, meter_name)
 
     assert (any(val == test_meter for val in meter_name)), "Returned meter name does not exist"
