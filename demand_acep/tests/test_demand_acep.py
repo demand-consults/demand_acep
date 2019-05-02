@@ -16,14 +16,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from demand_acep import extract_data
 from demand_acep import extract_ppty
 # %% Paths
-# os.chdir('..')
+
 
 def test_extract_data():
 
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    # path = '/Users/Tinu/Dropbox/demand_acep/demand_acep'
-    # path = '.'
-    dirpath = os.path.join(path, '/data/measurements/2018/07/01')
+    dirpath = os.path.join(path, 'data/measurements/2018/07/01')
     filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
     [test_time, test_values] = extract_data(dirpath, filename)
 
