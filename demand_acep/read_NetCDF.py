@@ -4,11 +4,14 @@ import pandas as pd
 import pdb
 import xarray as xr
 
+
+# %% Paths
+path = os.getcwd()
+path_ppty = os.path.join(path, 'demand_acep/data/properties')
+path_data = os.path.join(path, 'demand_acep/data/measurements')
 # %% Read in files containing data type
-path_struct = '/Volumes/GoogleDrive/My Drive/ACEP/UW Direct Capstone Project Files/Original Proposal Docs/' \
-              'Copy of Measured Channels PFRR.xlsx'
-# xl_file = pd.ExcelFile(path_struct)
-meter_details = pd.read_excel(path_struct)
+filename_ppty = 'Copy of Measured Channels PFRR.xlsx'
+meter_details = pd.read_excel(os.path.join(path_ppty, filename_ppty))
 # Extract channel names
 channel_name = ['time'] + list(meter_details['Channels'][:48])
 channel_description = list(meter_details['Desc'][:48])
@@ -44,18 +47,18 @@ def extract_ppty(filename, meter_name):
 # %% Walk through folders and read .nc files using xarray
 
 
-# Create Pandas dataframe for 4 meters
+# Create Pandas dataframe for the 4 meters
 PkFltM1Ant_df = pd.DataFrame()
 PkFltM2Tel_df = pd.DataFrame()
 PkFltM3Sci_df = pd.DataFrame()
 PQube3_df = pd.DataFrame()
 
-path_data = '/Volumes/GoogleDrive/My Drive/ACEP/Data/2018/07/01'
 os.chdir(path_data)
-for dirpath, dirnames, files in os.walk('.', topdown=True):
+for dirpath, dirnames, files in os.walk(path_data, topdown=True):
     for filename in files:
         if filename.lower().endswith('.nc'):
             [meter, channel] = extract_ppty(filename, meter_name)
+            # pdb.set_trace()
             if meter == meter_name[0]:
                 [channel_time, channel_values] = extract_data(dirpath, filename)
                 if PkFltM1Ant_df.empty:

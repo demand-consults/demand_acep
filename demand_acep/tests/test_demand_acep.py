@@ -21,17 +21,6 @@ from demand_acep import hello_world
 from read_NetCDF import extract_data
 from read_NetCDF import extract_ppty
 
-def test_hello_world():
-    """
-    This function test the function hello_world()
-    """
-    print('Hello World yass!')
-    result = hello_world()
-
-    assert result == "Hello world!", "The function does not return the string 'Hello world!'"
-
-    return
-
 
 def test_extract_data():
     dirpath = '/Volumes/GoogleDrive/My Drive/ACEP/Data/2018/07/01'
