@@ -3,6 +3,7 @@
 from sqlalchemy import create_engine  
 from sqlalchemy import Table, Column, String, MetaData
 import pandas as pd
+import os
 
 def read_source_file(file_path, file_name):
     """ 
@@ -23,7 +24,20 @@ def read_source_file(file_path, file_name):
         Description of anonymous integer return value.
     """
     
-    source_file
+    path = os.getcwd()
+    # path_ppty = os.path.join(path, 'demand_acep/data/properties')
+    # path_data = os.path.join(path, 'demand_acep/data/measurements')
+    path_ppty = os.path.join(path, 'data/properties')
+    path_data = os.path.join(path, 'data/measurements')
+    # %% Read in files containing data type
+    filename_ppty = 'Copy of Measured Channels PFRR.xlsx'
+    meter_details = pd.read_excel(os.path.join(path_ppty, filename_ppty))
+    # Extract channel names
+    channel_name = ['time'] + list(meter_details['Channels'][:48])
+    channel_description = list(meter_details['Desc'][:48])
+    channel_dict = dict(zip(channel_name, channel_description))
+    # Extract name of meters
+    meter_name = list(meter_details.columns.values)[-4:]
     
-    return 
+    return channel_name, meter_name
     
