@@ -3,7 +3,10 @@ This is the place for all the unit tests for the package demand_acep.
 We can refactor this if this becomes too large.
 
 """
+# %% Imports
 
+import numpy as np
+import pdb
 import pandas as pd
 import os, sys
 import re
@@ -11,16 +14,26 @@ from os import listdir
 from os.path import isfile, join
 import pytest # automatic test finder and test runner
 
+# %% Paths
 # To import files from the parent directory
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# To import files from the parent directory
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Import our functions 
+from demand_acep import extract_data
+from demand_acep import extract_ppty
+
 import demand_acep as da
-from create_db_schema import read_source_file 
+from create_db_schema import read_source_files 
+
+
 
 ################################################################################
 ######## Tests for function read_source_file ###################################
 ################################################################################
-def test_read_source_file():
+def test_read_source_files():
     
     
     return 
@@ -30,20 +43,6 @@ This is the place for all the unit tests for the package demand_acep.
 We can refactor this if this becomes too large.
 
 """
-# %% Imports
-
-import os
-import sys
-import numpy as np
-import pdb
-
-# To import files from the parent directory
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from demand_acep import extract_data
-from demand_acep import extract_ppty
-# %% Paths
-
 
 def test_extract_data():
 
