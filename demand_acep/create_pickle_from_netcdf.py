@@ -1,25 +1,16 @@
-# This file handles the databse insertion
+## This file creates the pickle from netCDF files for each meter. 
 
-from sqlalchemy import * 
+from sqlalchemy import *
 import pandas as pd
-
-# %% Imports
 import os
-import pandas as pd
-import pdb
+import config # This is the configuration for deployment 
 
-from demand_acep import extract_data
-from demand_acep import extract_ppty
-
-
-def insert_into_database(sql_engine, data_date, data_root_path):
+def netCDF_to_pickle(data_date):
     """ 
     This function inserts into the database for the data_date specified
     
     Parameters
     ----------
-    sql_engine : SQLAlchemy databse engine
-        `sql_engine` should support database operation.
     data_date : string
         `data_date` string will be used to extract the year and the path to the
         data.
@@ -33,8 +24,10 @@ def insert_into_database(sql_engine, data_date, data_root_path):
         Description of anonymous integer return value.
     """
     
-    # Look for the pickle and file and use pandas_to_sql to insert the data 
-    # into the database. 
-    
+    data_year = data_date[-4:]
+    print(data_year)
+    print(config.DATA_ROOT)
+    # find this path, extract data from those files, create a dataframe, and 
+    # store it as pickle in the folder. 
     
     return 
