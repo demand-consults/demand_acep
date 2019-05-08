@@ -124,4 +124,27 @@ def create_schema_from_source_files(sql_engine, channel_metadata_file, years_fil
     # making this function idempotent
     metadata.create_all()
     
+    # Create timescaledb hypertables from the tables created 
+    
+    ##########
+    # There is currently no SQLAlchemy way to create hypertables, so we execute 
+    # an sql statement. This would have been simlar in psycopg2. 
+    # Also, this creates hypertables for all tables in the metadata. If this is 
+    # desired, then specify the tables names using some other mechanism. 
+    #########
+    
+    # First get the names of the tables 
+    table_names = metadata.tables.keys()
+
+    # Connect to the database engine to execute the query
+    with sql_engine.connect() as con:
+        
+        # Iterate over the table names to create the query statement
+        for table_name in table_names:
+            # Generate the query statement for the current table name
+            sql_statement = ("""SELECT create_hypertable('public.""" + '"' + 
+            table_name + '"' + """', 'time' , if_not_exists => TRUE);""")
+            # Execute the query 
+            con.execute(sql_statement)
+        
     return 
