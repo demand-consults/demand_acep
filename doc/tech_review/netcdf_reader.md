@@ -5,9 +5,9 @@ To achieve the goal of creating a data pipeline for the measurement data, that i
 
 Three NetCDF file readers considered were:
 1. NetcdfHandler.py - This is the netcdf python file received along with the dataset.
-2. [netCDF4 module] (https://github.com/Unidata/netcdf4-python).
+2. [netCDF4 module](https://github.com/Unidata/netcdf4-python).
 
-3. [xarray] (http://xarray.pydata.org/en/stable/why-xarray.html).
+3. [xarray](http://xarray.pydata.org/en/stable/why-xarray.html).
 
 Of these NetCDF file readers, xarray was chosen as the module to be used because it:
 1. Has two core data structures - DataArray and Dataset - which build upon and extend the core strengths of NumPy and pandas. 
