@@ -1,9 +1,9 @@
 # Tech-review of Data Imputation Packages
 After reading the ACEP measurement data into a timeseries database, the next step will be filling in missing or corrupted data in a process known as data imputation. Various python imputation modules exists and the following were considered:
 
-1. [Sklearn Imputer] (https://sklearn.org/modules/generated/sklearn.preprocessing.Imputer.html)
+1. [Sklearn Imputer](https://sklearn.org/modules/generated/sklearn.preprocessing.Imputer.html)
 2. [Impyute](https://pypi.org/project/impyute/)
-3. [Scipy-Pandas Interpolation](https://docs.scipy.org/doc/scipy/reference/interpolate.html#univariate-interpolation, https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html)
+3. [Scipy Interpolation](https://docs.scipy.org/doc/scipy/reference/interpolate.html#univariate-interpolation)/[Pandas Interpolation](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html)
 4. [FancyImpute](https://github.com/iskandr/fancyimpute)
 
 Of these imputation modules, impyute was chosen to be used primarily because of its ability to deal with time series data imputation. Since the ACEP dataset is a time series data, methods such as autoregressive moving averages,  moving windows and last observation carried forward will be more useful and these methods are available in the impyute module. The other modules especially the FancyImpute handles random missing data by using the mean, median, mode of the data or training a regression model or a nearest neighbor model to determine the missing data. 
