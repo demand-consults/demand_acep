@@ -8,12 +8,12 @@
 ## 1. Data Pipeline
 - **Data Aggregation:** Read/Load NetCDF files containing all measurements from the meters into a database.
     * [Tech review](./tech_review/timeseries_database.md) of the appropriate time-series database.
-    * Tech review of appropriate NetCDF file reader.
+    * [Tech review](./tech_review/netcdf_reader.md) of appropriate NetCDF file reader.
     * Perform database design and data structuring.
     * Use selected NetCDF file reader to read files according to meter and measurement type
     * Export data into structured database
 - **Data Filling:** Missing time series data imputation
-    * Tech review of time series data imputation techniques.
+    * [Tech review](./tech_review/data_imputation.md) of time series data imputation techniques.
     * Update missing data values using selected technique from above.
 - **Anomaly Detection:** Find out if some data was recorded in error or doesn't make sense. This could be due to error in sensor reading, or transmission error or recording error. 
     * Tech review of anomaly detection mechanisms. 
