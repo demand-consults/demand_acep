@@ -1,0 +1,5 @@
+meter_name,meter_type
+PkFltM1Ant,WattsOnMk2
+PkFltM2Tel,WattsOnMk2
+PkFltM3Sci,WattsOnMk2
+PQube3,PQube
