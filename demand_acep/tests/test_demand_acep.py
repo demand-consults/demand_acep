@@ -17,6 +17,14 @@ from demand_acep import extract_data
 from demand_acep import extract_ppty
 # %% Paths
 
+<<<<<<< HEAD
+def test_hello_world():
+    """
+    This function test the function hello_world()
+    """
+    result = hello_world()
+    print("hello")
+=======
 def test_extract_data():
 
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -39,5 +47,6 @@ def test_extract_ppty():
     assert (any(val == test_meter for val in meter_name)), "Returned meter name does not exist"
 
     assert (test_channel in filename), "Returned measurement channel does not exist"
+>>>>>>> a628d9fd1726b5269b1d219c8351c69054a375f4
 
     return
