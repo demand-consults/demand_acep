@@ -24,5 +24,5 @@ def test_hello_world():
     result = hello_world()
 
     assert result == "Hello world!", "The function does not return the string 'Hello world!'"
-
+    
     return
