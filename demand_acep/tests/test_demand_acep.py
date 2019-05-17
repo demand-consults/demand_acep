@@ -22,6 +22,7 @@ def test_hello_world():
     This function test the function hello_world()
     """
     result = hello_world()
+    print("hello")
 
     assert result == "Hello world!", "The function does not return the string 'Hello world!'"
     
