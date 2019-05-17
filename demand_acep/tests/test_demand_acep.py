@@ -17,7 +17,6 @@ from demand_acep import extract_data
 from demand_acep import extract_ppty
 # %% Paths
 
-
 def test_extract_data():
 
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
