@@ -13,20 +13,6 @@ import xarray as xr
 
 # %%
 
-def hello_world():
-    """
-    This function returns the string Hello World.
-
-    This is for testing the CI and other devops functionality.
-
-    :return: A string "Hello world!"
-    """
-
-    print("Hello WOrlds")
-
-
-    return "Hello world!"
-
 
 def extract_data(dirpath, filename):
     """This function takes in a filename and directory path, extracts the meter channel data in that file and
