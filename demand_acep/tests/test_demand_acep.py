@@ -26,17 +26,7 @@ from demand_acep import extract_data
 from demand_acep import extract_ppty
 
 import demand_acep as da
-from create_db_schema import read_source_files 
 
-
-
-################################################################################
-######## Tests for function read_source_file ###################################
-################################################################################
-def test_read_source_files():
-    
-    
-    return 
 
 """
 This is the place for all the unit tests for the package demand_acep.
