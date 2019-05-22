@@ -5,39 +5,32 @@ We can refactor this if this becomes too large.
 """
 # %% Imports
 
+import os
+import sys
 import numpy as np
 import pdb
-import pandas as pd
-import os, sys
-import re
-from os import listdir
-from os.path import isfile, join
-import pytest # automatic test finder and test runner
-
-# %% Paths
-# To import files from the parent directory
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # To import files from the parent directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Import our functions 
 from demand_acep import extract_data
 from demand_acep import extract_ppty
+# %% Paths
 
-import demand_acep as da
 
 def test_extract_data():
     meter_name = ['PkFltM1Ant', 'PkFltM2Tel', 'PkFltM3Sci', 'PQube3']
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     dirpath = os.path.join(path, 'data/measurements/2018/07/01')
     filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
-    [test_meter, test_channel] = extract_ppty(filename, meter_name)
-    [test_time, test_values] = extract_data(dirpath, filename, test_channel)
+    [_, channel] = extract_ppty(filename, meter_name)
+    # [test_time, test_values] = extract_data(dirpath, filename)
+    test_df = extract_data(dirpath, filename, channel)
+    column_name = test_df.columns.tolist()[0]
 
-    assert (test_time.dtype == 'timedelta64[ns]'), "The first output from this function should be a timedelta object"
+    assert (test_df.index.dtype == 'datetime64[ns]'), "The first output from this function should be a timedelta object"
 
-    assert isinstance(test_values, np.ndarray), "The second output from this function should be a numpy array"
+    assert (test_df[column_name].dtype == 'float64'), "The second output from this function should be a numpy array"
 
     return
 
@@ -52,5 +45,3 @@ def test_extract_ppty():
     assert (test_channel in filename), "Returned measurement channel does not exist"
 
     return
-
-
