@@ -13,7 +13,6 @@ import xarray as xr
 
 # %%
 
-
 def extract_data(dirpath, filename, channel):
     """This function takes in a filename and directory path, extracts the meter channel data in that file and
     returns the time and channel values at each time"""
