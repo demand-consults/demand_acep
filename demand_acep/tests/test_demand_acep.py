@@ -28,11 +28,12 @@ from demand_acep import extract_ppty
 import demand_acep as da
 
 def test_extract_data():
-
+    meter_name = ['PkFltM1Ant', 'PkFltM2Tel', 'PkFltM3Sci', 'PQube3']
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     dirpath = os.path.join(path, 'data/measurements/2018/07/01')
     filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
-    [test_time, test_values] = extract_data(dirpath, filename)
+    [test_meter, test_channel] = extract_ppty(filename, meter_name)
+    [test_time, test_values] = extract_data(dirpath, filename, test_channel)
 
     assert (test_time.dtype == 'timedelta64[ns]'), "The first output from this function should be a timedelta object"
 
