@@ -27,13 +27,6 @@ from demand_acep import extract_ppty
 
 import demand_acep as da
 
-
-"""
-This is the place for all the unit tests for the package demand_acep.
-We can refactor this if this becomes too large.
-
-"""
-
 def test_extract_data():
 
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -58,4 +51,5 @@ def test_extract_ppty():
     assert (test_channel in filename), "Returned measurement channel does not exist"
 
     return
+
 

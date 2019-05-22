@@ -13,13 +13,16 @@ import xarray as xr
 
 # %%
 
-def extract_data(dirpath, filename):
+def extract_data(dirpath, filename, channel):
     """This function takes in a filename and directory path, extracts the meter channel data in that file and
     returns the time and channel values at each time"""
     netcdf_data = xr.open_dataset(os.path.join(dirpath, filename))
     netcdf_df = netcdf_data.to_dataframe()
-
-    return netcdf_df.index, netcdf_df['value'].values
+    netcdf_df.columns = [channel]
+    netcdf_df.set_index(pd.to_datetime(netcdf_df.index.values), inplace=True)
+    netcdf_resampled = netcdf_df.resample('1T').mean()
+    # pdb.set_trace()
+    return netcdf_resampled
 
 
 def extract_ppty(filename, meter_name):
