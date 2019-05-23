@@ -1,6 +1,7 @@
-""" The functions in this file convert the netcdf files to a dataframe and then 
-write them to disk using multiprocessing. So, if we have a multi-core system, the 
-extraction can happen in parallel. """
+"""
+Functions in this file insert the data into the timescaledb database using the 
+go utility provided by timescaledb called timescaledb-parallel-copy
+"""
 
 import os
 import pandas as pd
@@ -8,15 +9,17 @@ import pdb
 import datetime
 import io
 from daterangeparser import parse
-import multiprocessing as mp
-import dill
+import glob
+import multiprocessing
+import subprocess
 
 from demand_acep import extract_data
 from demand_acep import extract_ppty
 
-def extract_csv_for_date(config, data_date):
+def parallel_copy_data_for_date(config, data_date):
     """ 
-    This function writes the data for the data_date specified to a pickle on disk.
+    This function parallel copies the data for the data_date specified to the 
+    appropriate table of TSDB.
     
     Parameters
     ----------
@@ -51,51 +54,55 @@ def extract_csv_for_date(config, data_date):
     meter_count = len(config.METER_CHANNEL_DICT)
     # Create a list of lists of size of number of meters
     meter_collection = {}
-    meter_csv_names = {}
+    meter_pickle_names = {}
+    # Path of the tsdb parallel copy go executable
+    timescaledb_parallel_copy_path = "/gscratch/stf/demand_acep/go/src/github.com/timescale/timescaledb-parallel-copy/cmd/timescaledb-parallel-copy/timescaledb-parallel-copy"
+    db_name = config.DB_NAME
+    # Get the CPU count for parallelizing the process
+    num_workers = multiprocessing.cpu_count()
+    # Change this based on the database location and user
+    connection_string = 'host=localhost user=cp84 sslmode=disable'
     
-    for meter_name in config.METER_CHANNEL_DICT:
-        # Get the channels for this meter
-        meter_channels = config.METER_CHANNEL_DICT[meter_name]
-        # Types of columns - defaulting to float, except for time
-        #columns_types = [datetime.datetime] + [Float] * (len(meter_channels) - 1)
-        meter_collection[meter_name] = pd.DataFrame()
-        
-        # pd.read_csv(io.StringIO(""), 
-        # names=meter_channels, 
-        # dtype=dict(zip(meter_channels,[float]*len(meter_channels))), 
-        # index_col=['time']) 
     
-    print(meter_collection)
-    
-    for dirpath, dirnames, files in os.walk(data_path, topdown=True):
-        # `files` contains the names of all the files at the location
-        for filename in files:
-            if filename.lower().endswith('.nc'):
-                [meter, channel] = extract_ppty(filename, config.METER_CHANNEL_DICT.keys())
-                meter_csv_names[meter] = '@'.join([meter, '@'.join(filename.split('@')[1:4])])[:-3] + '.csv'
-                csv_name = os.path.join(data_path, meter_csv_names[meter])
-                # Only extract if not already pickled
-                if (not os.path.isfile(csv_name)):
-                    # print(meter)
-                    [channel_time, channel_values] = extract_data(dirpath, filename)
-                    if meter_collection[meter].empty:
-                        # meter_collection[meter] = meter_collection[meter].append({'time': channel_time}, ignore_index=True)
-                        # meter_collection[meter].loc[:, channel] = channel_values
-                        meter_collection[meter]['time'] = channel_time
-                    meter_collection[meter][channel] = channel_values
+    for fname in glob.glob(os.path.join(data_path, '*.csv')):
+        print(os.path.basename(fname))
+        file_name = os.path.basename(fname)
+        table_name = file_name.split('@')[0] + '_' + data_year
+        parallel_copy_cmd = [timescaledb_parallel_copy_path, '--db-name', 
+                            db_name, '--table', table_name, '--file', fname, 
+                            '--workers', str(num_workers), '--connection', connection_string]
+        print(parallel_copy_cmd)
+        subprocess.run(parallel_copy_cmd)
+        # for dirpath, dirnames, files in os.walk(data_path, topdown=True):
+    #     # `files` contains the names of all the files at the location
+    #     for filename in files:
+    #         if filename.lower().endswith('.nc'):
+    #             [meter, channel] = extract_ppty(filename, config.METER_CHANNEL_DICT.keys())
+    #             meter_pickle_names[meter] = '@'.join([meter, '@'.join(filename.split('@')[1:4])])[:-3] + '.pkl'
+    #             pickle_name = os.path.join(data_path, meter_pickle_names[meter])
+    #             # Only extract if not already pickled
+    #             if (not os.path.isfile(pickle_name)):
+    #                 # print(meter)
+    #                 [channel_time, channel_values] = extract_data(dirpath, filename)
+    #                 if meter_collection[meter].empty:
+    #                     # meter_collection[meter] = meter_collection[meter].append({'time': channel_time}, ignore_index=True)
+    #                     # meter_collection[meter].loc[:, channel] = channel_values
+    #                     meter_collection[meter]['time'] = channel_time
+    #                 meter_collection[meter][channel] = channel_values
                 
-    # Write to pickle
-    for meter in meter_collection:
-        # Convert time to the right data type
-        meter_collection[meter]['time'] = pd.to_datetime(meter_collection[meter]['time'])
-        csv_name = os.path.join(data_path, meter_csv_names[meter])
-        print(csv_name)
-        # Only write pickle if it does not exist yet
-        if(not os.path.isfile(csv_name)):
-            meter_collection[meter].to_csv(csv_name, header=False, index=False)
-    return meter_csv_names
+    # # Write to pickle
+    # for meter in meter_collection:
+    #     pickle_name = os.path.join(data_path, meter_pickle_names[meter])
+    #     print(pickle_name)
+    #     # Only write pickle if it does not exist yet
+    #     if(not os.path.isfile(pickle_name)):
+    #         # listToWrite = meter_collection[meter].to_dict(orient='records')
+    #         with open(pickle_name, "wb") as dill_file:
+    #             dill.dump(meter_collection[meter], dill_file)
+    #             print("Pickle saved", pickle_name)
+    return meter_pickle_names
 
-def extract_csv_for_dates(config, data_date_range, processes=4):
+def extract_data_for_dates(config, data_date_range, processes=4):
     """ 
     This function extracts the data to disk for the data_date_range specified.
     

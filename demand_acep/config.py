@@ -57,4 +57,6 @@ for index, row in meter_names_df.iterrows():
 years_df = pd.read_csv(DATA_YEARS_FILE)
 
 DATA_YEARS = years_df['years'].values.tolist()
-    
+
+# Database name 
+DB_NAME = 'demand_acep'

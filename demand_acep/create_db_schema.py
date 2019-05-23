@@ -32,68 +32,73 @@ def create_schema_from_source_files(sql_engine, config):
     # This should be connected to the correct database. 
     metadata = MetaData(sql_engine)
     
+    delete_ok = raw_input("This will drop all the tables and delete all the data, OK? Enter y or n")
     # Clean the database, 
     # ***** this will delete all tables and data in it *****
-    metadata.reflect(sql_engine)
-    metadata.drop_all(sql_engine)
     
-    for meter in config.METER_CHANNEL_DICT:
-        # Get the channels for this meter
-        meter_channels = config.METER_CHANNEL_DICT[meter]
-        # Create the following lists for the database insertion 
-        # Types of columns - defaulting to float, except for time
-        columns_types = [TIMESTAMP] + [Float] * (len(meter_channels) - 1)
-        # Primary key flags - defaulting to false, except for time
-        # **** removing the pk_constraint, for speedy inserts ****
-        primary_key_flags = [False] + [False] * (len(meter_channels) - 1)
-        # Nullable flags - defaulting to false, except for time
-        # **** removing the non_null constraint, for speedy inserts ****
-        nullable_flags = [False] + [False] * (len(meter_channels) - 1)
-        # Iterate over the years list 
-        for year in config.DATA_YEARS: 
-            # Create table name from meter name and year 
-            table_name = meter + "_" + str(year)
-            
-            # Dynamically create table names and corresponding column names
-            table_name = Table(table_name, metadata,
-             *(Column(column_name, column_type,
-                      primary_key=primary_key_flag,
-                      nullable=nullable_flag)
-               for column_name,
-                   column_type,
-                   primary_key_flag,
-                   nullable_flag in zip(meter_channels,
-                                        columns_types,
-                                        primary_key_flags,
-                                        nullable_flags)))
-            print(table_name)
+    if delete_ok.lower() == 'y':
+        metadata.reflect(sql_engine)
+        metadata.drop_all(sql_engine)
+        # Clear the metadata
+        metadata.clear()
     
-    # Create the tables in the metadata - this defaults to checking that 
-    # the table names first, so will only create tables if they do not exist
-    # making this function idempotent
-    metadata.create_all()
-    
-    # Create timescaledb hypertables from the tables created 
-    
-    ##########
-    # There is currently no SQLAlchemy way to create hypertables, so we execute 
-    # an sql statement. This would have been simlar in psycopg2. 
-    # Also, this creates hypertables for all tables in the metadata. If this is 
-    # desired, then specify the tables names using some other mechanism. 
-    #########
-    
-    # First get the names of the tables 
-    table_names = metadata.tables.keys()
-
-    # Connect to the database engine to execute the query
-    # with sql_engine.connect() as con:
+        for meter in config.METER_CHANNEL_DICT:
+            # Get the channels for this meter
+            meter_channels = config.METER_CHANNEL_DICT[meter]
+            # Create the following lists for the database insertion 
+            # Types of columns - defaulting to float, except for time
+            columns_types = [TIMESTAMP(timezone=True)] + [Float] * (len(meter_channels) - 1)
+            # Primary key flags - defaulting to false, except for time
+            # **** removing the pk_constraint, for speedy inserts ****
+            primary_key_flags = [True] + [False] * (len(meter_channels) - 1)
+            # Nullable flags - defaulting to false, except for time
+            # **** removing the non_null constraint, for speedy inserts ****
+            nullable_flags = [True] + [False] * (len(meter_channels) - 1)
+            # Iterate over the years list 
+            for year in config.DATA_YEARS: 
+                # Create table name from meter name and year 
+                table_name = meter + "_" + str(year)
+                
+                # Dynamically create table names and corresponding column names
+                table_name_i = Table(table_name, metadata,
+                 *(Column(column_name, column_type,
+                          primary_key=primary_key_flag,
+                          nullable=nullable_flag)
+                   for column_name,
+                       column_type,
+                       primary_key_flag,
+                       nullable_flag in zip(meter_channels,
+                                            columns_types,
+                                            primary_key_flags,
+                                            nullable_flags)))
+                print(table_name_i)
         
-    #     # Iterate over the table names to create the query statement
-    #     for table_name in table_names:
-    #         # Generate the query statement for the current table name
-    #         sql_statement = ("""SELECT create_hypertable('public.""" + '"' + 
-    #         table_name + '"' + """', 'time' , if_not_exists => TRUE);""")
-    #         # Execute the query 
-    #         con.execute(sql_statement)
+        # Create the tables in the metadata - this defaults to checking that 
+        # the table names first, so will only create tables if they do not exist
+        # making this function idempotent
+        metadata.create_all()
+        
+        # Create timescaledb hypertables from the tables created 
+        
+        ##########
+        # There is currently no SQLAlchemy way to create hypertables, so we execute 
+        # an sql statement. This would have been simlar in psycopg2. 
+        # Also, this creates hypertables for all tables in the metadata. If this is 
+        # desired, then specify the tables names using some other mechanism. 
+        #########
+        
+        # First get the names of the tables 
+        table_names = metadata.tables.keys()
+    
+        # Connect to the database engine to execute the query
+        with sql_engine.connect() as con:
+            
+            # Iterate over the table names to create the query statement
+            for table_name in table_names:
+                # Generate the query statement for the current table name
+                sql_statement = ("""SELECT create_hypertable('public.""" + '"' + 
+                table_name + '"' + """', 'time' , if_not_exists => TRUE);""")
+                # Execute the query 
+                con.execute(sql_statement)
         
     return table_names
