@@ -56,12 +56,12 @@ def parallel_copy_data_for_date(config, data_date):
     meter_collection = {}
     meter_pickle_names = {}
     # Path of the tsdb parallel copy go executable
-    timescaledb_parallel_copy_path = "/gscratch/stf/demand_acep/go/src/github.com/timescale/timescaledb-parallel-copy/cmd/timescaledb-parallel-copy/timescaledb-parallel-copy"
+    timescaledb_parallel_copy_path = "timescaledb-parallel-copy"
     db_name = config.DB_NAME
     # Get the CPU count for parallelizing the process
     num_workers = multiprocessing.cpu_count()
     # Change this based on the database location and user
-    connection_string = 'host=localhost user=cp84 sslmode=disable'
+    connection_string = 'host=localhost user=tsdb_user password=husky123 sslmode=disable'
     
     
     for fname in glob.glob(os.path.join(data_path, '*.csv')):

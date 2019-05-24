@@ -32,7 +32,7 @@ def create_schema_from_source_files(sql_engine, config):
     # This should be connected to the correct database. 
     metadata = MetaData(sql_engine)
     
-    delete_ok = raw_input("This will drop all the tables and delete all the data, OK? Enter y or n")
+    delete_ok = input("This will drop all the tables and delete all the data, OK? Enter y or n")
     # Clean the database, 
     # ***** this will delete all tables and data in it *****
     

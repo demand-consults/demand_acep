@@ -6,8 +6,8 @@ import pandas as pd
 # This is for production environment
 # The tests will define these paths separately
 print("Config imported")
-DATA_ROOT = "/gscratch/stf/demand_acep/Data"
-METADATA_PATH = "/gscratch/stf/demand_acep/demand_acep/demand_acep/data/properties/"
+DATA_ROOT = "/data/data"
+METADATA_PATH = "/home/ubuntu/demand_acep/demand_acep/data/properties/"
 METER_CHANNEL_FILE = METADATA_PATH + "NetCDF Meter File Generation Matrix Copy Poker Flats.xlsx"
 DATA_YEARS_FILE = METADATA_PATH + "data_years.txt"
 METER_NAMES_FILE = METADATA_PATH + "meter_names.txt"
