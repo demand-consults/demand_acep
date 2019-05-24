@@ -53,6 +53,6 @@ def test_data_resample():
     test_resampled = data_resample(test_df, sample_time='1T')
     diff_test = np.diff(test_resampled.index)
     time_1T_ns = np.timedelta64(60000000000,'ns') # sample_time 1T in nanoseconds
-    assert (np.all(np.equal(diff_test, time_1T_ns))), "Data not properly resampled"
+    assert (np.all(np.equal(diff_test, time_1T_ns))), "Data not properly downsamples"
 
     return

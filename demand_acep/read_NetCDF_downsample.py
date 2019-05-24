@@ -31,7 +31,7 @@ PkFltM2Tel_df = pd.DataFrame()
 PkFltM3Sci_df = pd.DataFrame()
 PQube3_df = pd.DataFrame()
 # sample_time allows the user determine what time interval the data should be resampled at
-# For 1 minute - 1T, 1 hour - 1H, 1 month - 1M
+# For 1 minute - 1T, 1 hour - 1H, 1 month - 1M, 1 Day - 1D
 sample_time = '1T'
 
 # interp_method and interp_order allows the user specify the method of interpolation and the order

@@ -54,7 +54,7 @@ def extract_ppty(filename, meter_name):
 
 
 def data_resample(netcdf_df, sample_time='1T'):
-    """This function accepts a dataframe and resamples it based on the sample time supplied"""
+    """This function accepts a dataframe and downsamples it based on the sample time supplied"""
     netcdf_resampled = netcdf_df.resample(sample_time).mean()
 
     return netcdf_resampled
