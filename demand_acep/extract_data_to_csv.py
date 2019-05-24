@@ -4,6 +4,7 @@ extraction can happen in parallel. """
 
 import os
 import pandas as pd
+import numpy as np
 import pdb
 import datetime
 import io
@@ -13,6 +14,8 @@ import dill
 
 from demand_acep import extract_data
 from demand_acep import extract_ppty
+from demand_acep import data_resample
+
 
 def extract_csv_for_date(config, data_date):
     """ 
@@ -52,6 +55,11 @@ def extract_csv_for_date(config, data_date):
     # Create a list of lists of size of number of meters
     meter_collection = {}
     meter_csv_names = {}
+
+    # sample_time allows the user determine what time interval the data should be resampled at
+    # For 1 minute - 1T, 1 hour - 1H, 1 month - 1M, 1 Day - 1D
+    sample_time = '1T'
+
     
     for meter_name in config.METER_CHANNEL_DICT:
         # Get the channels for this meter
@@ -76,22 +84,41 @@ def extract_csv_for_date(config, data_date):
                 csv_name = os.path.join(data_path, meter_csv_names[meter])
                 # Only extract if not already pickled
                 if (not os.path.isfile(csv_name)):
-                    # print(meter)
-                    [channel_time, channel_values] = extract_data(dirpath, filename)
+                    channel_df = extract_data(dirpath, filename)
+                    channel_df.columns = [channel]
+                    channel_resampled = data_resample(channel_df, sample_time)
                     if meter_collection[meter].empty:
-                        # meter_collection[meter] = meter_collection[meter].append({'time': channel_time}, ignore_index=True)
-                        # meter_collection[meter].loc[:, channel] = channel_values
-                        meter_collection[meter]['time'] = channel_time
-                    meter_collection[meter][channel] = channel_values
+                        meter_collection[meter] = channel_resampled.copy()
+                    else:
+                        if channel in meter_collection[meter].columns:
+                            idx_1 = meter_collection[meter].index
+                            idx_2 = channel_resampled.index
+                            if np.all(np.isin(idx_2, idx_1)):
+                                meter_collection[meter][channel].loc[idx_2] = np.reshape(channel_resampled.values,
+                                                                            (len(channel_resampled),))
+                            else:
+                                meter_collection[meter] = meter_collection[meter].append(channel_resampled, sort=False)
+                                meter_collection[meter].sort_index(inplace=True)
+                                meter_collection[meter] = data_resample(meter_collection[meter], sample_time)
+                        else:
+                            meter_collection[meter] = meter_collection[meter].join(channel_resampled, how='outer')
                 
+    # Data Imputation by interpolation
+    # interp_method and interp_order allows the user specify the method of interpolation and the order
+    interp_method = 'spline'
+    interp_order = 2
+    for meter in meter_collection:
+        meter_collection[meter] = meter_collection[meter].interpolate(method=interp_method, order=interp_order)
+
     # Write to pickle
     for meter in meter_collection:
         csv_name = os.path.join(data_path, meter_csv_names[meter])
         print(csv_name)
         # Only write pickle if it does not exist yet
-        if(not os.path.isfile(csv_name)):
+        if (not os.path.isfile(csv_name)):
             meter_collection[meter].to_csv(csv_name)
     return meter_csv_names
+
 
 def extract_csv_for_dates(config, data_date_range, processes=4):
     """ 
