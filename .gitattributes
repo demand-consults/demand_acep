@@ -1,0 +1,2 @@
+# Apply the filter `ignore_readme_badges` on the README.md file to ignore build status etc. badges
+README.md filter=ignore_readme_badges
