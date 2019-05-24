@@ -78,6 +78,7 @@ scipy==1.2.1
 seaborn==0.9.0
 Send2Trash==1.5.0
 six==1.12.0
+sqlalchemy
 statsmodels==0.9.0
 tensorboard==1.13.1
 tensorflow==1.13.1
