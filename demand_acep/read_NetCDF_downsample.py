@@ -13,8 +13,8 @@ path = os.getcwd()
 # path_ppty = os.path.join(path, 'demand_acep/data/properties')
 # path_data = os.path.join(path, 'demand_acep/data/measurements')
 path_ppty = os.path.join(path, 'data/properties')
-# path_data = os.path.join(path, 'data/measurements/2018/07')
-path_data = os.path.join(path, 'data/measurements/2018/05')
+path_data = os.path.join(path, 'data/measurements/2018/07')
+# path_data = os.path.join(path, 'data/measurements/2018/05')
 # %% Read in files containing data type
 filename_ppty = 'Copy of Measured Channels PFRR.xlsx'
 meter_details = pd.read_excel(os.path.join(path_ppty, filename_ppty))
