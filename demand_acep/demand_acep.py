@@ -61,10 +61,15 @@ def data_resample(netcdf_df, sample_time='1T'):
 
 
 def data_impute(impute_df, interp_method, interp_order):
-    """This function accepts a dataframe and imputes data in the positions with NaN
+    """This function accepts a dataframe or a dictionary of dataframes and imputes data in the positions with NaN
     using the supplied interpolation method and order."""
-    if impute_df.isnull().values.any():
-        impute_df = impute_df.interpolate(method=interp_method, order=interp_order)
+    if isinstance(impute_df, dict):
+        for meter in impute_df:
+            if impute_df[meter].isnull().values.any():
+                impute_df[meter] = impute_df[meter].interpolate(method=interp_method, order=interp_order)
+    else:
+        if impute_df.isnull().values.any():
+            impute_df = impute_df.interpolate(method=interp_method, order=interp_order)
 
     return impute_df
 
