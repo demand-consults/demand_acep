@@ -60,3 +60,14 @@ DATA_YEARS = years_df['years'].values.tolist()
 
 # Database name 
 DB_NAME = 'demand_acep'
+
+# Downsampling duration
+# sample_time allows the user determine what time interval the data should be resampled at
+# For 1 minute - 1T, 1 hour - 1H, 1 month - 1M, 1 Day - 1D
+SAMPLE_TIME = '1T'
+
+# Data imputation related settings
+# Data Imputation by interpolation
+# interp_method and interp_order allows the user specify the method of interpolation and the order
+INTERP_METHOD = 'spline'
+INTERP_ORDER = 2

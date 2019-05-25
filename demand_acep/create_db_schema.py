@@ -23,7 +23,7 @@ def create_schema_from_source_files(sql_engine, config):
 
     Returns
     -------
-    Nothing (can change in future)
+    List of table names in the database.
     """
     
     # meter_channel_dict, data_years = read_source_files(channel_metadata_file, years_file)
@@ -31,13 +31,13 @@ def create_schema_from_source_files(sql_engine, config):
     # Metadata for the SQLAlchemy tables database - will add tables eventually 
     # This should be connected to the correct database. 
     metadata = MetaData(sql_engine)
+    metadata.reflect(sql_engine)
     
     delete_ok = input("This will drop all the tables and delete all the data, OK? Enter y or n")
     # Clean the database, 
     # ***** this will delete all tables and data in it *****
     
     if delete_ok.lower() == 'y':
-        metadata.reflect(sql_engine)
         metadata.drop_all(sql_engine)
         # Clear the metadata
         metadata.clear()
@@ -100,5 +100,5 @@ def create_schema_from_source_files(sql_engine, config):
                 table_name + '"' + """', 'time' , if_not_exists => TRUE);""")
                 # Execute the query 
                 con.execute(sql_statement)
-        
-    return table_names
+    
+    return  metadata.tables.keys()

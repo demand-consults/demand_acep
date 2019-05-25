@@ -72,37 +72,13 @@ def parallel_copy_data_for_date(config, data_date):
                             db_name, '--table', table_name, '--file', fname, 
                             '--workers', str(num_workers), '--connection', connection_string]
         print(parallel_copy_cmd)
-        subprocess.run(parallel_copy_cmd)
-        # for dirpath, dirnames, files in os.walk(data_path, topdown=True):
-    #     # `files` contains the names of all the files at the location
-    #     for filename in files:
-    #         if filename.lower().endswith('.nc'):
-    #             [meter, channel] = extract_ppty(filename, config.METER_CHANNEL_DICT.keys())
-    #             meter_pickle_names[meter] = '@'.join([meter, '@'.join(filename.split('@')[1:4])])[:-3] + '.pkl'
-    #             pickle_name = os.path.join(data_path, meter_pickle_names[meter])
-    #             # Only extract if not already pickled
-    #             if (not os.path.isfile(pickle_name)):
-    #                 # print(meter)
-    #                 [channel_time, channel_values] = extract_data(dirpath, filename)
-    #                 if meter_collection[meter].empty:
-    #                     # meter_collection[meter] = meter_collection[meter].append({'time': channel_time}, ignore_index=True)
-    #                     # meter_collection[meter].loc[:, channel] = channel_values
-    #                     meter_collection[meter]['time'] = channel_time
-    #                 meter_collection[meter][channel] = channel_values
-                
-    # # Write to pickle
-    # for meter in meter_collection:
-    #     pickle_name = os.path.join(data_path, meter_pickle_names[meter])
-    #     print(pickle_name)
-    #     # Only write pickle if it does not exist yet
-    #     if(not os.path.isfile(pickle_name)):
-    #         # listToWrite = meter_collection[meter].to_dict(orient='records')
-    #         with open(pickle_name, "wb") as dill_file:
-    #             dill.dump(meter_collection[meter], dill_file)
-    #             print("Pickle saved", pickle_name)
-    return meter_pickle_names
+        pcopy = subprocess.run(parallel_copy_cmd, encoding='utf-8', stdout=subprocess.PIPE)
+        for line in pcopy.stdout.split('\n'):
+            print(line)
 
-def extract_data_for_dates(config, data_date_range, processes=4):
+    return 
+
+def extract_data_for_dates(config, data_date_range):
     """ 
     This function extracts the data to disk for the data_date_range specified.
     
@@ -132,10 +108,6 @@ def extract_data_for_dates(config, data_date_range, processes=4):
         - 14th July 1988
         - 23rd October 7:30pm
         - From 07:30 18th Nov to 17:00 24th Nov
-    processes :
-        `processes` defaults to 4. This should be set to the number of cores 
-        available. This will parallelize the task across the number of cores 
-        using Python multiprocessing Pool. 
 
     Returns
     -------
@@ -148,11 +120,10 @@ def extract_data_for_dates(config, data_date_range, processes=4):
     # Get the list of dates within the range and convert to the format we want
     dates_in_range = pd.date_range(start, end).strftime("%m/%d/%Y")
     print(dates_in_range)
-    # Create a pool for the number of processes specified
-    pool = mp.Pool(processes=processes)
-    
-    results = [pool.apply(extract_data_for_date, args=(config, data_date)) for data_date in dates_in_range]
-    
+    # Perform the insert for the said days
+    for date in dates_in_range:
+        parallel_copy_data_for_date(config, date)
+
     return 
     
     
