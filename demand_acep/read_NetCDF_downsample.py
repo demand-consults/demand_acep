@@ -8,13 +8,14 @@ import pdb
 from demand_acep import extract_data
 from demand_acep import extract_ppty
 from demand_acep import data_resample
+from demand_acep import data_impute
 # %% Paths
 path = os.getcwd()
 # path_ppty = os.path.join(path, 'demand_acep/data/properties')
 # path_data = os.path.join(path, 'demand_acep/data/measurements')
 path_ppty = os.path.join(path, 'data/properties')
-path_data = os.path.join(path, 'data/measurements/2018/07')
-# path_data = os.path.join(path, 'data/measurements/2018/05')
+# path_data = os.path.join(path, 'data/measurements/2018/07')
+path_data = os.path.join(path, 'data/measurements/2018/05')
 # %% Read in files containing data type
 filename_ppty = 'Copy of Measured Channels PFRR.xlsx'
 meter_details = pd.read_excel(os.path.join(path_ppty, filename_ppty))
@@ -127,8 +128,8 @@ for dirpath, dirnames, files in os.walk(path_data, topdown=True):
                         PQube3_df = PQube3_df.join(channel_resampled, how='outer')
 
 
-# Interpolate to fix missing data issues
-PkFltM1Ant_df = PkFltM1Ant_df.interpolate(method=interp_method, order=interp_order)
-PkFltM2Tel_df = PkFltM2Tel_df.interpolate(method=interp_method, order=interp_order)
-PkFltM3Sci_df = PkFltM3Sci_df.interpolate(method=interp_method, order=interp_order)
-PQube3_df = PQube3_df.interpolate(method=interp_method, order=interp_order)
+# # Interpolate to fix missing data issues
+PkFltM1Ant_df = data_impute(PkFltM1Ant_df, interp_method, interp_order)
+PkFltM2Tel_df = data_impute(PkFltM2Tel_df, interp_method, interp_order)
+PkFltM3Sci_df = data_impute(PkFltM3Sci_df, interp_method, interp_order)
+PQube3_df = data_impute(PQube3_df, interp_method, interp_order)
