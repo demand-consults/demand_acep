@@ -16,13 +16,17 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from demand_acep import extract_data
 from demand_acep import extract_ppty
 from demand_acep import data_resample
+from demand_acep import data_impute
 # %% Paths
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+dirpath = os.path.join(path, 'data/measurements/2018/07/01')
+filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
 
 
 def test_extract_data():
-    path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    dirpath = os.path.join(path, 'data/measurements/2018/07/01')
-    filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
+    # path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    # dirpath = os.path.join(path, 'data/measurements/2018/07/01')
+    # filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
     test_df = extract_data(dirpath, filename)
     column_name = test_df.columns.tolist()[0]
 
@@ -35,7 +39,7 @@ def test_extract_data():
 
 def test_extract_ppty():
     meter_name = ['PkFltM1Ant', 'PkFltM2Tel', 'PkFltM3Sci', 'PQube3']
-    filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
+    # filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
     [test_meter, test_channel] = extract_ppty(filename, meter_name)
 
     assert (any(val == test_meter for val in meter_name)), "Returned meter name does not exist"
@@ -46,13 +50,28 @@ def test_extract_ppty():
 
 
 def test_data_resample():
-    path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    dirpath = os.path.join(path, 'data/measurements/2018/07/01')
-    filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
+    # path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    # dirpath = os.path.join(path, 'data/measurements/2018/07/01')
+    # filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
     test_df = extract_data(dirpath, filename)
     test_resampled = data_resample(test_df, sample_time='1T')
     diff_test = np.diff(test_resampled.index)
     time_1T_ns = np.timedelta64(60000000000,'ns') # sample_time 1T in nanoseconds
     assert (np.all(np.equal(diff_test, time_1T_ns))), "Data not properly downsamples"
+
+    return
+
+
+def test_data_impute():
+    interp_method = 'spline'
+    interp_order = 2
+    # path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    # dirpath = os.path.join(path, 'data/measurements/2018/07/01')
+    # filename = 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
+    test_df = extract_data(dirpath, filename)
+    test_df = data_impute(test_df, interp_method, interp_order)
+    # pdb.set_trace()
+
+    assert (test_df.notnull().values.all()), "Data imputations not functioning properly as data still contains NaN"
 
     return
