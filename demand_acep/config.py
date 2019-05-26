@@ -6,8 +6,8 @@ import pandas as pd
 # This is for production environment
 # The tests will define these paths separately
 print("Config imported")
-DATA_ROOT = "/gscratch/stf/demand_acep/Data"
-METADATA_PATH = "/gscratch/stf/demand_acep/demand_acep/demand_acep/data/properties/"
+DATA_ROOT = "/data/data"
+METADATA_PATH = "/home/ubuntu/demand_acep/demand_acep/data/properties/"
 METER_CHANNEL_FILE = METADATA_PATH + "NetCDF Meter File Generation Matrix Copy Poker Flats.xlsx"
 DATA_YEARS_FILE = METADATA_PATH + "data_years.txt"
 METER_NAMES_FILE = METADATA_PATH + "meter_names.txt"
@@ -57,4 +57,17 @@ for index, row in meter_names_df.iterrows():
 years_df = pd.read_csv(DATA_YEARS_FILE)
 
 DATA_YEARS = years_df['years'].values.tolist()
-    
+
+# Database name 
+DB_NAME = 'demand_acep'
+
+# Downsampling duration
+# sample_time allows the user determine what time interval the data should be resampled at
+# For 1 minute - 1T, 1 hour - 1H, 1 month - 1M, 1 Day - 1D
+SAMPLE_TIME = '1T'
+
+# Data imputation related settings
+# Data Imputation by interpolation
+# interp_method and interp_order allows the user specify the method of interpolation and the order
+INTERP_METHOD = 'spline'
+INTERP_ORDER = 2

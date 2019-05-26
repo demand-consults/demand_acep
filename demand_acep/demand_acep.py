@@ -13,21 +13,6 @@ import xarray as xr
 
 # %%
 
-def hello_world():
-    """
-    This function returns the string Hello World.
-
-    This is for testing the CI and other devops functionality.
-
-    :return: A string "Hello world!"
-    """
-
-    print("Hello WOrlds")
-
-
-    return "Hello world!"
-
-
 def extract_data(dirpath, filename):
     """This function takes in a filename and directory path, extracts the meter channel data in that file and
     returns the time and channel values at each time"""
@@ -55,7 +40,7 @@ def extract_ppty(filename, meter_name):
 
 def data_resample(netcdf_df, sample_time='1T'):
     """This function accepts a dataframe and downsamples it based on the sample time supplied"""
-    netcdf_resampled = netcdf_df.resample(sample_time).mean()
+    netcdf_resampled = netcdf_df.resample(sample_time, closed="left", label="right").mean()
 
     return netcdf_resampled
 
