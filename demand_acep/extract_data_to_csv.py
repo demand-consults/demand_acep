@@ -15,6 +15,7 @@ import dill
 from demand_acep import extract_data
 from demand_acep import extract_ppty
 from demand_acep import data_resample
+from demand_acep import data_impute
 
 
 def extract_csv_for_date(config, data_date):
@@ -125,14 +126,15 @@ def extract_csv_for_date(config, data_date):
     interp_method = config.INTERP_METHOD
     interp_order = config.INTERP_ORDER
     
-    # Perform the interpolation
-    for meter in meter_collection:
-        meter_collection[meter] = meter_collection[meter].interpolate(method=interp_method, order=interp_order)
-
+    # Perform data imputation wherrever needed
+    meter_collection = data_impute(meter_collection, interp_method, interp_order)
+    
     # Write the total dataframes to csv file
     for meter in meter_collection:
-        # Convert time to the right data type
-        # meter_collection[meter]['time'] = pd.to_datetime(meter_collection[meter]['time'])
+        # Reorganize the order of columns to match the database tables 
+        meter_channels = config.METER_CHANNEL_DICT[meter]
+        # meter_collection[meter].reset_index(inplace=True)
+        meter_collection[meter] = meter_collection[meter].reindex(columns=meter_channels[1:])
         csv_name = os.path.join(data_path, meter_csv_names[meter])
         print(csv_name)
         # Only write csv if it does not exist yet

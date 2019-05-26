@@ -70,7 +70,8 @@ def parallel_copy_data_for_date(config, data_date):
         table_name = file_name.split('@')[0] + '_' + data_year
         parallel_copy_cmd = [timescaledb_parallel_copy_path, '--db-name', 
                             db_name, '--table', table_name, '--file', fname, 
-                            '--workers', str(num_workers), '--connection', connection_string]
+                            '--workers', str(num_workers), '--connection', 
+                            connection_string, '--skip-header', 'true']
         print(parallel_copy_cmd)
         pcopy = subprocess.run(parallel_copy_cmd, encoding='utf-8', stdout=subprocess.PIPE)
         for line in pcopy.stdout.split('\n'):
@@ -78,7 +79,7 @@ def parallel_copy_data_for_date(config, data_date):
 
     return 
 
-def extract_data_for_dates(config, data_date_range):
+def parallel_copy_data_for_dates(config, start, end):
     """ 
     This function extracts the data to disk for the data_date_range specified.
     
@@ -88,35 +89,17 @@ def extract_data_for_dates(config, data_date_range):
         `config` contains the configuration for paths etc. needed by files. As
         an argument we can change the config files for different production 
         vs test configs 
-    data_date_range : string
-        `data_date_range` string will be used to extract the dates in the range 
-        specified. The data will be inserted for all dates in between the dates
-        *including* the start and end dates.
-        
-        **Accepted formats:**
-
-        This parsing routine works with date ranges and single dates, and should
-        work with a wide variety of human-style string formats, including:
-        
-        - 27th-29th June 2010
-        - 30 May to 9th Aug
-        - 3rd Jan 1980 - 2nd Jan 2013
-        - Wed 23 Jan - Sat 16 February 2013
-        - Tuesday 29 May -> Sat 2 June 2012
-        - From 27th to 29th March 1999
-        - 1--9 Jul
-        - 14th July 1988
-        - 23rd October 7:30pm
-        - From 07:30 18th Nov to 17:00 24th Nov
-
+    start : str or datetime-like
+        Left bound for generating dates.
+    end : str or datetime-like
+        Right bound for generating dates.
+ 
     Returns
     -------
     int
         Description of anonymous integer return value.
     """
     
-    # Get the start and end date
-    start, end = parse(data_date_range)
     # Get the list of dates within the range and convert to the format we want
     dates_in_range = pd.date_range(start, end).strftime("%m/%d/%Y")
     print(dates_in_range)
