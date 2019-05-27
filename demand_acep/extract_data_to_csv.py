@@ -116,6 +116,16 @@ def extract_csv_for_date(config, data_date):
                             else:
                                 meter_collection[meter] = meter_collection[meter].append(channel_resampled, sort=False)
                                 meter_collection[meter].sort_index(inplace=True)
+                                #######################
+                                # This data is resampled a second time to handle two cases:
+                                # 1. When appending a resampled dataframe to an already resampled dataframe, the last
+                                #    index of the original dataframe and the first index of the new dataframe can have
+                                #    the same time. Resampling the appended dataframe will eliminate the repetitions.
+                                # 2. If the new dataframe to be appended starts at a much later time, resampling the
+                                #    appended dataframe will create rows of missing data (NaN) at the times with no
+                                #    measurement values. This makes it easier to detect missing measurement values and
+                                #    perform data imputation at a later phase.
+                                #######################
                                 meter_collection[meter] = data_resample(meter_collection[meter], sample_time)
                         # If the channel does not already exist, then add the
                         # file dataframe to the total df. 
