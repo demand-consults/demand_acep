@@ -2,15 +2,18 @@
 # so we do not have to repeat those in every function 
 
 import pandas as pd
+import os, sys
 
 # This is for production environment
 # The tests will define these paths separately
 print("Config imported")
 DATA_ROOT = "/data/data"
-METADATA_PATH = "/home/ubuntu/demand_acep/demand_acep/data/properties/"
-METER_CHANNEL_FILE = METADATA_PATH + "NetCDF Meter File Generation Matrix Copy Poker Flats.xlsx"
-DATA_YEARS_FILE = METADATA_PATH + "data_years.txt"
-METER_NAMES_FILE = METADATA_PATH + "meter_names.txt"
+
+dirname = os.path.dirname(__file__)
+METADATA_PATH = os.path.join(dirname, "data/properties/")
+METER_CHANNEL_FILE = os.path.join(METADATA_PATH, "NetCDF Meter File Generation Matrix Copy Poker Flats.xlsx")
+DATA_YEARS_FILE = os.path.join(METADATA_PATH, "data_years.txt")
+METER_NAMES_FILE = os.path.join(METADATA_PATH, "meter_names.txt")
 
 # Get meter names from meter names file 
 meter_names_df = pd.read_csv(METER_NAMES_FILE)
