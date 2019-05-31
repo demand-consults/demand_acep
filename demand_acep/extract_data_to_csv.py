@@ -14,6 +14,7 @@ from demand_acep import extract_data
 from demand_acep import extract_ppty
 from demand_acep import data_resample
 from demand_acep import data_impute
+from dateutil.parser import parse
 
 
 def extract_csv_for_date(config, data_date):
@@ -35,11 +36,43 @@ def extract_csv_for_date(config, data_date):
     int
         Description of anonymous integer return value.
     """    
+    
+    ### TODO: test config separately 
+    
+    print(config.DATA_ROOT)
     print(data_date)
+    
+    # Raise an exception if attribute DATA_ROOT does not exist
+    if not 'DATA_ROOT' in vars(config):
+        raise AttributeError("Attribute DATA_ROOT does not exist")
+        
+    # Raise an exception if DATA_ROOT does not exist
+    if not os.path.exists(config.DATA_ROOT):
+        raise NotADirectoryError("The path " + config.DATA_ROOT + " not found")
+        
+    # Raise an exception if attribute METER_CHANNEL_DICT does not exist
+    if not 'METER_CHANNEL_DICT' in vars(config):
+        raise AttributeError("Attribute METER_CHANNEL_DICT does not exist")
+        
+    # Raise an exception if attribute METER_CHANNEL_DICT does not exist
+    if not 'SAMPLE_TIME' in vars(config):
+        raise AttributeError("Attribute METER_CHANNEL_DICT does not exist")
+    
+    data_date_dt = parse(data_date)
+    
+    if data_date_dt > config.DATA_END_DATE:
+        raise ValueError("data_date entered is greater than the DATA_END_DATE: " + 
+                        str(config.DATA_END_DATE))
+                        
+    if data_date_dt < config.DATA_START_DATE:
+        raise ValueError("data_date entered is less than the DATA_START_DATE: " + 
+                        str(config.DATA_START_DATE))
+                        
     # Get the year, month and and day from date entered
-    data_year = data_date[-4:]
-    data_month = data_date[0:2]
-    data_day = data_date[3:5]
+    data_year = data_date_dt.year
+    data_month = data_date_dt.month
+    data_day = data_date_dt.day
+    
     # Get the corresponding path in the directory to look for the data for the day
     data_path = os.path.join(config.DATA_ROOT, data_year, data_month, data_day)
     

@@ -10,8 +10,10 @@ Welcome to demand_acep's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-Start by reading the README.md file here: https://github.com/chintanp/demand_acep/blob/master/README.md and then check out the usage in 
-examples folder. 
+The project `demand_acep<https://github.com/demand-consults/demand_acep>`_
+aims to make sense of the data collected by power meters at some facilities at the 
+`Poker Flat Research Range<http://www.pfrr.alaska.edu/content/welcome-poker-flat>`_ 
+(PFRR) managed by `Alaska Center of Energy and Power<http://acep.uaf.edu/>`_ (ACEP).
 
 Indices and tables
 ==================

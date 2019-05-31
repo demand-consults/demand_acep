@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     },
     shell: {
       test: {
-        command: 'coverage run --source=demand_acep -m pytest .'
+        command: 'coverage run --source=demand_acep -m pytest . --disable-warnings -s'
       }
     }
   });

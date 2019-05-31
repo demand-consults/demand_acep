@@ -1,3 +1,5 @@
+# Configuation for the test environment
+
 # This file has the global configuration 
 # so we do not have to repeat those in every function 
 
@@ -7,10 +9,14 @@ import datetime
 
 # This is for production environment
 # The tests will define these paths separately
-print("Config imported")
-DATA_ROOT = "/data/data"
+print(" Test Config imported")
 
-dirname = os.path.dirname(__file__)
+dirname = os.path.dirname(os.path.dirname(__file__))
+###################################################
+# This is the main change from the production config 
+DATA_ROOT = os.path.join(dirname, "data/measurements")
+######################################################
+print(DATA_ROOT)
 METADATA_PATH = os.path.join(dirname, "data/properties/")
 METER_CHANNEL_FILE = os.path.join(METADATA_PATH, "NetCDF Meter File Generation Matrix Copy Poker Flats.xlsx")
 DATA_YEARS_FILE = os.path.join(METADATA_PATH, "data_years.txt")
@@ -61,7 +67,6 @@ for index, row in meter_names_df.iterrows():
 years_df = pd.read_csv(DATA_YEARS_FILE)
 
 DATA_YEARS = years_df['years'].values.tolist()
-
 
 # Data start and end date
 DATA_START_DATE = datetime.datetime(2017, 11, 1)
