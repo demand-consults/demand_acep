@@ -10,10 +10,9 @@ Welcome to demand_acep's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-The project `demand_acep<https://github.com/demand-consults/demand_acep>`_
+The project `demand_acep`_
 aims to make sense of the data collected by power meters at some facilities at the 
-`Poker Flat Research Range<http://www.pfrr.alaska.edu/content/welcome-poker-flat>`_ 
-(PFRR) managed by `Alaska Center of Energy and Power<http://acep.uaf.edu/>`_ (ACEP).
+`Poker Flat Research Range`_ (PFRR) managed by `Alaska Center of Energy and Power`_ (ACEP).
 
 Indices and tables
 ==================
@@ -24,3 +23,6 @@ Indices and tables
 
 
 .. include:: ../README.md
+.. _demand_acep: https://github.com/demand-consults/demand_acep
+.. _Poker Flat Research Range: http://www.pfrr.alaska.edu/content/welcome-poker-flat
+.. _Alaska Center of Energy and Power: http://acep.uaf.edu/
