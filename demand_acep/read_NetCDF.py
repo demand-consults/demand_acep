@@ -3,7 +3,6 @@ import os
 import pandas as pd
 import pdb
 
-
 from demand_acep import extract_data
 from demand_acep import extract_ppty
 # %% Paths

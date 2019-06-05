@@ -1,4 +1,3 @@
-
 # ACEP Demand Charge Reduction at Poker Flats Research Range (PFRR)
 ## 0. Data sharing and code sharing policy 
 **Data sharing:** Since ACEP has spent lot of resources in collecting this data, they do not want to open it yet without ascertaining its value. The team will come up with a plan to effectively share data among the participants for research work with strict policies to not share it outside without permission from ACEP. Further, a subset of data can be used in the repository for demonstration, testing etc. and this subset will be extracted with approval from ACEP. 
@@ -39,6 +38,3 @@ PFRR has significant wind and solar energy generation potential. Based on the pa
 
 ## 4. Estimating cost savings using a virtual meter
 Using the solar+wind estimates, and considering a lithium-ion ESS, create a load-leveling plan that minimizes demand charges and verify economic feasibility. This might involve using HOMER like in this paper or not like here.
-
-
-
