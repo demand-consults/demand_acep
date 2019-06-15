@@ -8,9 +8,14 @@ This is a test docstring for the whole module
 # %% Imports
 import os
 import pandas as pd
+import numpy as np
 import pdb
 import xarray as xr
-
+import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+from scipy.interpolate import UnivariateSpline
+from itertools import groupby
+from operator import itemgetter
 # %%
 
 
@@ -102,32 +107,112 @@ def data_resample(df, sample_time='1T'):
     return df_resampled
 
 
-def data_impute(impute_df, interp_method, interp_order):
+def build_interpolation(y_values, n_val):
     """
-        This function imputes missing measurement data in the positions with NaN using the supplied interpolation method
-        and order. It uses the pandas module `df.interpolate`
+        This function takes performs the actual 1-d interpolation. If the number of consecutive missing points is less
+        than 3, a linear interpolation is used, else, a cubic interpolation is used.
+
+        Parameters
+        ----------
+        y_values :
+            `y_values` are the values on which the function interpolation is built, that is, y_values = f(x).
+        n_val :
+            `n_val` is the number of consecutive missing points that needs to be filled.
+
+        Returns
+        -------
+        y_interp
+            Array of interpolated values equal in length to the missing supplied length (n_val) of missing data points..
+        """
+    # removes the NaN values so as not to skew the performance of the scipy interp1d function.
+    y_values = y_values.dropna()
+    x = np.linspace(1, len(y_values), num=len(y_values))
+    # if-else uses a linear interpolation when the number of consecutive missing data points is less than 3.
+    #  The number of points to be interpolated has to be greater than 3 points to use the spline/Cubic interpolation
+    if len(y_values) <= 3:
+        f = interp1d(x, y_values, kind='linear')
+    else:
+        f = interp1d(x, y_values, kind='cubic')
+
+    x_interp = np.linspace(1, len(y_values), num=n_val)
+    y_interp = f(x_interp)
+
+    return y_interp
+
+
+def compute_interpolation(df):
+    """
+        This function imputes missing measurement data (Nan) in a series using 1-d interpolation.
+
+        Parameters
+        ----------
+        df :
+            `df` is a series containing missing measurements values.
+
+        Returns
+        -------
+        Series
+            Filled pandas series with no missing values.
+        """
+    # creates a deep copy of the Series received
+    test_df = df.copy()
+    # gets the index location in integers where the NaNs are located
+    get_nan_idx = np.where(test_df.isna())[0]
+    idx_grp_nan = []
+    # creates a list of consecutive index locations to determine the range of interpolation
+    for k, g in groupby(enumerate(get_nan_idx), lambda ix: ix[0] - ix[1]):
+        idx_grp_nan.append(list(map(itemgetter(1), g)))
+    # performs interpolation for each consecutive NaN index location
+    for idx, val in enumerate(idx_grp_nan):
+        n_grp = len(val)
+        # for each range of consecutive NaN locations, use data points of length equal to the number that NaNs in that
+        # range before and after the NaN data points
+        prev_idx = val[0] - n_grp
+        next_idx = val[-1] + n_grp
+        # This if-else clause handles edge cases
+        # If - When the number of consecutive NaN points is larger than the number of available data points before it in
+        # the dataframe.
+        # Elif - When the number of consecutive NaN points is larger than the number of available data points after it
+        # in the dataframe.
+        if prev_idx < 0:
+            prev_vals = test_df.iloc[0:val[0]]
+            next_vals = test_df.iloc[val[0] + 1: next_idx + 1]
+        elif next_idx > len(test_df):
+            prev_vals = test_df.iloc[prev_idx:val[0]]
+            next_vals = test_df.iloc[val[0] + 1: len(test_df)]
+        else:
+            prev_vals = test_df.iloc[prev_idx:val[0]]
+            next_vals = test_df.iloc[val[0] + 1: next_idx + 1]
+        y_values = prev_vals.append(next_vals)
+        y_interp = build_interpolation(y_values, len(val))
+        test_df.iloc[val] = y_interp
+
+    return test_df
+
+
+def data_impute(impute_df):
+    """
+        This function imputes missing measurement in a dataframe using a 1-d interpolation. If the number of consecutive
+        missing points is less than 3, a linear interpolation is used, else, a cubic interpolation is used.
 
         Parameters
         ----------
         impute_df :
             `impute_df` can either be a dataframe of a dictionary of dataframes containing missing measurements values.
-        interp_method :
-            `interp_method` determines the interpolation method to be used. It can be linear, cubic, spline, etc.
-        interp_order :
-            `interp_order` determines the order/degree of the interpolation method chosen.
 
         Returns
         -------
         Dataframe
             Filled pandas dataframe with no missing values.
         """
+    # if-else checks if the input is a dataframe or list of dataframes.
     if isinstance(impute_df, dict):
         for meter in impute_df:
             if impute_df[meter].isnull().values.any():
-                impute_df[meter] = impute_df[meter].interpolate(method=interp_method, order=interp_order)
+                impute_df[meter] = impute_df[meter].apply(data_impute)
     else:
         if impute_df.isnull().values.any():
-            impute_df = impute_df.interpolate(method=interp_method, order=interp_order)
+            impute_df = impute_df.apply(data_impute)
 
     return impute_df
 
