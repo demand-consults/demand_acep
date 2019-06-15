@@ -74,7 +74,7 @@ def test_data_impute():
 
 def test_build_interpolation():
     # check that returned y_interp contains no nan
-    # check that y_interp is within reasonable rangle from y_values
+    # check that y_interp is within reasonable range from y_values
     return
 
 
