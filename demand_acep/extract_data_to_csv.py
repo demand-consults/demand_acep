@@ -170,6 +170,7 @@ def extract_csv_for_date(config, data_date):
     interp_order = config.INTERP_ORDER
     
     # Perform data imputation wherrever needed
+    print(meter_collection)
     meter_collection = data_impute(meter_collection)
     
     # Write the total dataframes to csv file
