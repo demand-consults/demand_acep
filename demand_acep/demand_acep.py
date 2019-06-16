@@ -209,10 +209,10 @@ def data_impute(impute_df):
     if isinstance(impute_df, dict):
         for meter in impute_df:
             if impute_df[meter].isnull().values.any():
-                impute_df[meter] = impute_df[meter].apply(data_impute)
+                impute_df[meter] = impute_df[meter].apply(compute_interpolation)
     else:
         if impute_df.isnull().values.any():
-            impute_df = impute_df.apply(data_impute)
+            impute_df = impute_df.apply(compute_interpolation)
 
     return impute_df
 

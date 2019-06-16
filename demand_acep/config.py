@@ -69,6 +69,12 @@ DATA_END_DATE = datetime.datetime(2019, 4, 30)
 
 # Database name 
 DB_NAME = 'demand_acep'
+#  path of timescaledb-parallel-copy
+tsdb_pc_path = "/gscratch/stf/demand_acep/go/bin"
+# DB username 
+DB_USER = "cp84"
+# DB password
+DB_PWD = "neotao123"
 
 # Downsampling duration
 # sample_time allows the user determine what time interval the data should be resampled at
