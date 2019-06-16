@@ -79,7 +79,6 @@ def test_data_impute():
 
     return
 
-<<<<<<< HEAD
 def test_extract_csv_for_date():
     
     # Test that bad input throws the right kind of exceptions 
@@ -142,7 +141,6 @@ def test_config_file():
     
 
     return 
-=======
 
 def test_build_interpolation():
     # check that returned y_interp contains no nan
@@ -156,4 +154,3 @@ def test_compute_interpolation():
     # check test_df is a series
 
     return
->>>>>>> upstream/master
