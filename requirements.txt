@@ -95,4 +95,6 @@ Werkzeug==0.14.1
 widgetsnbextension==3.4.2
 xarray==0.11.3
 xlrd==1.2.0
-
+nbsphinx
+sphinx_rtd_theme
+numpydoc
