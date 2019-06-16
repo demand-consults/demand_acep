@@ -8,61 +8,211 @@ This is a test docstring for the whole module
 # %% Imports
 import os
 import pandas as pd
+import numpy as np
 import pdb
 import xarray as xr
-
+import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+from scipy.interpolate import UnivariateSpline
+from itertools import groupby
+from operator import itemgetter
 # %%
+
 
 def extract_data(dirpath, filename):
     """
-    This function takes in a filename and directory path, extracts the meter channel data in that file and
-    returns the time and channel values at each time
-    """
+        This function reads and extracts the NetCDF format data of the given meter channel using a package called xarray.
+
+        Parameters
+        ----------
+        dirpath :
+            `dirpath` is the directory path location of the NetCDF file to be read
+        filename :
+            `filename` is the NetCDF format meter channel file to be read.
+
+        Returns
+        -------
+        Dataframe
+            Sample-time indexed pandas dataframe containing measurement values from the given file.
+        """
+    # Extracts NetCDF files using xarray module
     netcdf_data = xr.open_dataset(os.path.join(dirpath, filename))
     netcdf_df = netcdf_data.to_dataframe()
+    # Converts the time index to datetime format
     netcdf_df.set_index(pd.to_datetime(netcdf_df.index.values), inplace=True)
-    # pdb.set_trace()
+
     return netcdf_df
 
 
 def extract_ppty(filename, meter_name):
     """
-    This function takes in a filename and the list containing the names of each of the four meters at pokerflats;
-    extracts and returns the meter name and measurement type described in the filename
-    """
+        This function parses out the given filename as a string to determine the meter name and the measurement
+        channel/type contained in the file
+
+        Parameters
+        ----------
+        filename :
+            `filename` is the NetCDF format meter channel file whose name contains information such as location, date,
+            meter type, measurement channel/type and sampling frequency. An example filename is:
+            'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
+        meter_name :
+            `meter_name` is a list containing the names of each of the meters at pokerflats
+
+        Returns
+        -------
+        meter : string
+            `meter` is the meter name of the NetCDF format file given.
+        channel : string
+            `channel` is the measurement type contained in the NetCDF format file given
+        """
+    # Example filename - 'PokerFlatResearchRange-PokerFlat-PkFltM1AntEaDel@2018-07-02T081007Z@PT23H@PT146F.nc'
     filename_split_1 = filename.split('@')
     filename_split_2 = filename_split_1[0].split('-')
     meter_channel = filename_split_2[-1]
     for name in meter_name:
         if meter_channel.startswith(name):
             n_name = len(name)
+            # Example meter from example filename above - PkFltM1Ant
             meter = meter_channel[:n_name]
+            # Example channel from example filename above - EaDel (Energy delivered to Phase A)
             channel = meter_channel[n_name:]
 
     return meter, channel
 
 
-def data_resample(netcdf_df, sample_time='1T'):
+def data_resample(df, sample_time='1T'):
     """
-    This function accepts a dataframe and downsamples it based on the sample time supplied
-    """
-    netcdf_resampled = netcdf_df.resample(sample_time, closed="left", label="right").mean()
+        This function downsamples a sample-time indexed pandas dataframe containing measurement channel values based
+        on the sample time supplied. It uses the mean of the values within the resolution interval. It uses the pandas
+        dataframe module `df.resample`
 
-    return netcdf_resampled
+        Parameters
+        ----------
+        df :
+            `df` is a sample-time indexed pandas dataframe containing measurement values from the different channels of
+            each meter.
+        sample_time :
+            `sample_time` determines the desired resolution of the downsampled data. For 1 minute - 1T, 1 hour - 1H,
+            1 month - 1M, 1 Day - 1D etc. The default chosen here is 1 minute.
+
+        Returns
+        -------
+        Dataframe
+            Resampled-time indexed pandas dataframe containing downsampled measurement values from the given dataframe.
+        """
+    # Data is downsampled using the mean of the values within the interval of the sample time provided.
+    # The mean is used because it provided the average/expected value of the measurement within that time range.
+    df_resampled = df.resample(sample_time, closed="left", label="right").mean()
+
+    return df_resampled
 
 
-def data_impute(impute_df, interp_method, interp_order):
+def build_interpolation(y_values, n_val):
     """
-    This function accepts a dataframe or a dictionary of dataframes and imputes data in the positions with NaN
-    using the supplied interpolation method and order.
+        This function takes performs the actual 1-d interpolation. If the number of consecutive missing points is less
+        than 3, a linear interpolation is used, else, a cubic interpolation is used.
+
+        Parameters
+        ----------
+        y_values :
+            `y_values` are the values on which the function interpolation is built, that is, y_values = f(x).
+        n_val :
+            `n_val` is the number of consecutive missing points that needs to be filled.
+
+        Returns
+        -------
+        y_interp
+            Array of interpolated values equal in length to the missing supplied length (n_val) of missing data points..
+        """
+    # removes the NaN values so as not to skew the performance of the scipy interp1d function.
+    y_values = y_values.dropna()
+    x = np.linspace(1, len(y_values), num=len(y_values))
+    # if-else uses a linear interpolation when the number of consecutive missing data points is less than 3.
+    #  The number of points to be interpolated has to be greater than 3 points to use the spline/Cubic interpolation
+    if len(y_values) <= 3:
+        f = interp1d(x, y_values, kind='linear')
+    else:
+        f = interp1d(x, y_values, kind='cubic')
+
+    x_interp = np.linspace(1, len(y_values), num=n_val)
+    y_interp = f(x_interp)
+
+    return y_interp
+
+
+def compute_interpolation(df):
     """
+        This function imputes missing measurement data (Nan) in a series using 1-d interpolation.
+
+        Parameters
+        ----------
+        df :
+            `df` is a series containing missing measurements values.
+
+        Returns
+        -------
+        Series
+            Filled pandas series with no missing values.
+        """
+    # creates a deep copy of the Series received
+    test_df = df.copy()
+    # gets the index location in integers where the NaNs are located
+    get_nan_idx = np.where(test_df.isna())[0]
+    idx_grp_nan = []
+    # creates a list of consecutive index locations to determine the range of interpolation
+    for k, g in groupby(enumerate(get_nan_idx), lambda ix: ix[0] - ix[1]):
+        idx_grp_nan.append(list(map(itemgetter(1), g)))
+    # performs interpolation for each consecutive NaN index location
+    for idx, val in enumerate(idx_grp_nan):
+        n_grp = len(val)
+        # for each range of consecutive NaN locations, use data points of length equal to the number that NaNs in that
+        # range before and after the NaN data points
+        prev_idx = val[0] - n_grp
+        next_idx = val[-1] + n_grp
+        # This if-else clause handles edge cases
+        # If - When the number of consecutive NaN points is larger than the number of available data points before it in
+        # the dataframe.
+        # Elif - When the number of consecutive NaN points is larger than the number of available data points after it
+        # in the dataframe.
+        if prev_idx < 0:
+            prev_vals = test_df.iloc[0:val[0]]
+            next_vals = test_df.iloc[val[0] + 1: next_idx + 1]
+        elif next_idx > len(test_df):
+            prev_vals = test_df.iloc[prev_idx:val[0]]
+            next_vals = test_df.iloc[val[0] + 1: len(test_df)]
+        else:
+            prev_vals = test_df.iloc[prev_idx:val[0]]
+            next_vals = test_df.iloc[val[0] + 1: next_idx + 1]
+        y_values = prev_vals.append(next_vals)
+        y_interp = build_interpolation(y_values, len(val))
+        test_df.iloc[val] = y_interp
+
+    return test_df
+
+
+def data_impute(impute_df):
+    """
+        This function imputes missing measurement in a dataframe using a 1-d interpolation. If the number of consecutive
+        missing points is less than 3, a linear interpolation is used, else, a cubic interpolation is used.
+
+        Parameters
+        ----------
+        impute_df :
+            `impute_df` can either be a dataframe of a dictionary of dataframes containing missing measurements values.
+
+        Returns
+        -------
+        Dataframe
+            Filled pandas dataframe with no missing values.
+        """
+    # if-else checks if the input is a dataframe or list of dataframes.
     if isinstance(impute_df, dict):
         for meter in impute_df:
             if impute_df[meter].isnull().values.any():
-                impute_df[meter] = impute_df[meter].interpolate(method=interp_method, order=interp_order)
+                impute_df[meter] = impute_df[meter].apply(data_impute)
     else:
         if impute_df.isnull().values.any():
-            impute_df = impute_df.interpolate(method=interp_method, order=interp_order)
+            impute_df = impute_df.apply(data_impute)
 
     return impute_df
 

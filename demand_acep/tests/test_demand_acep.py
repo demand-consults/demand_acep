@@ -64,10 +64,8 @@ def test_data_resample():
 
 
 def test_data_impute():
-    interp_method = 'spline'
-    interp_order = 2
     test_df = extract_data(dirpath, filename)
-    test_df = data_impute(test_df, interp_method, interp_order)
+    test_df = data_impute(test_df)
     # pdb.set_trace()
     dict_assert = []
     if isinstance(test_df, dict):
@@ -141,3 +139,16 @@ def test_config_file():
     
 
     return 
+
+def test_build_interpolation():
+    # check that returned y_interp contains no nan
+    # check that y_interp is within reasonable range from y_values
+    return
+
+
+def test_compute_interpolation():
+
+    # check test_df contains no nan
+    # check test_df is a series
+
+    return

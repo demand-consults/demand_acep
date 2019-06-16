@@ -8,7 +8,7 @@ import datetime
 # This is for production environment
 # The tests will define these paths separately
 print("Config imported")
-DATA_ROOT = "/data/data"
+DATA_ROOT = "/gscratch/stf/demand_acep/Data"
 
 dirname = os.path.dirname(__file__)
 METADATA_PATH = os.path.join(dirname, "data/properties/")
