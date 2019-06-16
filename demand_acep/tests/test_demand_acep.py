@@ -129,8 +129,6 @@ def test_extract_csv_for_date():
     with pytest.raises(ValueError):
         extract_csv_for_date(config_5, data_date_5)
     
-    
-    
     return 
 
 
