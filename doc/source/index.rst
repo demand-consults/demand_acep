@@ -13,8 +13,19 @@ Welcome to demand_acep's documentation!
 The project `demand_acep`_
 aims to make sense of the data collected by power meters at some facilities at the 
 `Poker Flat Research Range`_ (PFRR) managed by `Alaska Center of Energy and Power`_ (ACEP). 
+The project resulted in an open-source Python 3 package, that implements a data pipeline for high 
+resolution power meter data to easy access to data for data analytics and research. 
 The quick overview of the data pipeline can be seen below: 
 
+
+About the data pipeline
+------------------------
+The data pipeline comprises of three steps: 
+
+* **Extract**: This steps takes the data from NetCDF files and creates a dataframe with 
+* **Transform**: This step takes the extracted data, and transforms it as per your requirement. 
+We take the extracted data from NetCDF files, and concatenate the dataframes with different channels 
+for the same meter
 About the power meters
 ----------------------
 The data consists of 4 power meters. Three power meters are `WattsOnMk2`_ and one 
