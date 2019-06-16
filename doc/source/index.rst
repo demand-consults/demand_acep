@@ -20,6 +20,8 @@ The project resulted in an open-source Python 3 package, that implements a data 
 resolution power meter data to easy access to data for data analytics and research. 
 The quick overview of the data pipeline can be seen below: 
 
+.. image:: https://github.com/demand-consults/demand_acep/blob/master/doc/poster/demand_acep_poster_cei_day_final.tif
+
 
 About the data pipeline
 ------------------------
