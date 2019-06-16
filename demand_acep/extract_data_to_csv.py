@@ -74,8 +74,8 @@ def extract_csv_for_date(config, data_date):
     data_day = data_date_dt.day
     
     # Get the corresponding path in the directory to look for the data for the day
-    data_path = os.path.join(config.DATA_ROOT, data_year, data_month, data_day)
-    
+    data_path = os.path.join(config.DATA_ROOT, str(data_year), str(data_month), "{:02}".format(data_day))
+    print(data_path)
     # Find the count of meters
     meter_count = len(config.METER_CHANNEL_DICT)
 
@@ -106,7 +106,9 @@ def extract_csv_for_date(config, data_date):
                 # Form the resulting csv name from the meter name
                 # They are of the type - meter_name@Timestamp@Duration@Frequency
                 # For e.g.: PQube3@2017-11-01T080002Z@PT23H@PT227F.cs
+                #print(meter, channel)
                 meter_csv_names[meter] = '@'.join([meter, '@'.join(filename.split('@')[1:4])])[:-3] + '.csv'
+                #print(meter_csv_names)
                 # Get the full path of the csv
                 csv_name = os.path.join(data_path, meter_csv_names[meter])
                 # Only extract if not already extracted to csv
@@ -147,6 +149,16 @@ def extract_csv_for_date(config, data_date):
                             else:
                                 meter_collection[meter] = meter_collection[meter].append(channel_resampled, sort=False)
                                 meter_collection[meter].sort_index(inplace=True)
+                                #######################
+                                # This data is resampled a second time to handle two cases:
+                                # 1. When appending a resampled dataframe to an already resampled dataframe, the last
+                                #    index of the original dataframe and the first index of the new dataframe can have
+                                #    the same time. Resampling the appended dataframe will eliminate the repetitions.
+                                # 2. If the new dataframe to be appended starts at a much later time, resampling the
+                                #    appended dataframe will create rows of missing data (NaN) at the times with no
+                                #    measurement values. This makes it easier to detect missing measurement values and
+                                #    perform data imputation at a later phase.
+                                #######################
                                 meter_collection[meter] = data_resample(meter_collection[meter], sample_time)
                         # If the channel does not already exist, then add the
                         # file dataframe to the total df. 
@@ -158,7 +170,7 @@ def extract_csv_for_date(config, data_date):
     interp_order = config.INTERP_ORDER
     
     # Perform data imputation wherrever needed
-    meter_collection = data_impute(meter_collection, interp_method, interp_order)
+    meter_collection = data_impute(meter_collection)
     
     # Write the total dataframes to csv file
     for meter in meter_collection:
