@@ -7,7 +7,7 @@ demand_acep
 ===========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
    
 
@@ -18,9 +18,11 @@ aims to make sense of the data collected by power meters at some facilities at t
 `Poker Flat Research Range`_ (PFRR) managed by `Alaska Center of Energy and Power`_ (ACEP). 
 The project resulted in an open-source Python 3 package, that implements a data pipeline for high 
 resolution power meter data to easy access to data for data analytics and research. 
-The quick overview of the data pipeline can be seen below: 
+The quick overview of the data pipeline can be seen below:
 
-.. image:: https://github.com/demand-consults/demand_acep/blob/master/doc/poster/demand_acep_poster_cei_day_final.tif
+
+.. figure:: ../../poster/demand_acep_poster_cei_day_final.jpg
+   :width: 800 px
 
 
 About the data pipeline
@@ -29,9 +31,11 @@ The data pipeline comprises of three steps:
 
 * **Extract**: This steps takes the data from NetCDF files and creates a dataframe with time as index and values in the NetCDF file as the only column. 
 
-* **Transform**: This step takes the extracted data in the dataframe for each channel and down-samples the data to a lower resolution (1 minute default) and concatenates other channels to the dataframe keeping the same time index for each meter. The transformation step also does data imputation, i.e. fills in  the missing values. This implementation of extraction and transformation is coupled and happens in the function `extract_csv_for_date()`_, which saves the transformed data into a csv for each year. This function also handles edge-cases like days when data download to NetCDF files happens more than once. Data imputation handles two cases, i.e. when only few data points are missing versus when a longer time period, i.e. more than three consecutive data-points are missing. *This function does not handle cases when data is missing for a day or more.* An example extraction and transformation for a day is shown in the jupyter notebook `extract_to_csv.ipynb`_. An extraction and transformation for multiple days can be done in parallel and is shown in jupyter notebook `test_multiprocessing_csv.ipynb`_
 
-* **Load**: This step takes the transformed data in csv files and copies it into the timeseries database - TimescaleDB. The database schema for insertion (copy) can be created using the function `create_db_schema_from_source_files()`_ which **deletes** all the existing data and tables and creates tables for each meter for each year, with channels as columns and time as primary key. Further, "copy" operation is preferred over the "insert" since it is much faster and can be done for full resolution data too efficiently (Read `here`_ about the risks and care in using copy over insert in postgresql database). Further, a Go utility `timescaledb-parallel-copy`_ is used to copy the data to the database in parallel. The function `parallel_copy_data_for_date()`_ prepares the command for timescaledb-parallel-copy and copies the data. This command is run with the "skip-header" option to ignore the first line of each day csv file, as that date-time is repeated with the previous day. Function `parallel_copy_data_for_dates()`_ is a wrapper around the `parallel_copy_data_for_date()`_ function and does the copying for a date range. An example application of the copy operation can be seen in the juoyter notebook `timescale_parallel_copy.ipynb`_.
+* **Transform**: This step takes the extracted data in the dataframe for each channel and down-samples the data to a lower resolution (1 minute default) and concatenates other channels to the dataframe keeping the same time index for each meter. The transformation step also does data imputation, i.e. fills in  the missing values. This implementation of extraction and transformation is coupled and happens in the function `extract_csv_for_date()`_, which saves the transformed data into a csv for each year. This function also handles edge-cases like days when data download to NetCDF files happens more than once. Data imputation handles two cases, i.e. when only few data points are missing versus when a longer time period, i.e. more than three consecutive data-points are missing. *This function does not handle cases when data is missing for a day or more.* An example extraction and transformation for a day is shown in the jupyter notebook `extract_to_csv.ipynb`_. An extraction and transformation for multiple days can be done in parallel and is shown in jupyter notebook `test_multiprocessing_csv.ipynb`_. The extraction, transformation and saving of down-sampled data to csv currently takes around 2h 10min on a 28 core, 2.4 GHz system. 
+
+
+* **Load**: This step takes the transformed data in csv files and copies it into the timeseries database - TimescaleDB. The database schema for insertion (copy) can be created using the function `create_db_schema_from_source_files()`_ which **deletes** all the existing data and tables and creates tables for each meter for each year, with channels as columns and time as primary key. Further, "copy" operation is preferred over the "insert" since it is much faster and can be done for full resolution data too efficiently (Read `here`_ about the risks and care in using copy over insert in postgresql database). Further, a Go utility `timescaledb-parallel-copy`_ is used to copy the data to the database in parallel. The function `parallel_copy_data_for_date()`_ prepares the command for timescaledb-parallel-copy and copies the data. This command is run with the "skip-header" option to ignore the first line of each day csv file, as that date-time is repeated with the previous day. Function `parallel_copy_data_for_dates()`_ is a wrapper around the `parallel_copy_data_for_date()`_ function and does the copying for a date range. An example application of the copy operation can be seen in the jupyter notebook `timescale_parallel_copy.ipynb`_. The parallel copy takes 6min 18s on a 28 core, 2.4 GHz system. 
 
 About the power meters
 ----------------------
