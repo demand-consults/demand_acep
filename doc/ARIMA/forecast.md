@@ -38,19 +38,42 @@ output:
 ## F-statistic: 3.476e+04 on 3 and 38259 DF,  p-value: < 2.2e-16
 ```
 
-# PQ
+
+# Forecast based on day
+
+## PQ
 
 ![](forecast_files/figure-html/unnamed-chunk-2-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-2-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-2-3.png)<!-- -->
 
 
-# Wat1
+## Wat1
 
 ![](forecast_files/figure-html/unnamed-chunk-3-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-3-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-3-3.png)<!-- -->
 
-# Wat2
+## Wat2
 
 ![](forecast_files/figure-html/unnamed-chunk-4-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-4-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-4-3.png)<!-- -->
 
-# Wat3
+## Wat3
 
 ![](forecast_files/figure-html/unnamed-chunk-5-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-5-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-5-3.png)<!-- -->
+
+
+# Forecast based on month
+
+## PQ
+
+![](forecast_files/figure-html/unnamed-chunk-6-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-6-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-6-3.png)<!-- -->
+
+
+## Wat1
+
+![](forecast_files/figure-html/unnamed-chunk-7-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-7-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-7-3.png)<!-- -->
+
+## Wat2
+
+![](forecast_files/figure-html/unnamed-chunk-8-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-8-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-8-3.png)<!-- -->
+
+## Wat3
+
+![](forecast_files/figure-html/unnamed-chunk-9-1.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-9-2.png)<!-- -->![](forecast_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
