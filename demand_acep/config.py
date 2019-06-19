@@ -1,5 +1,63 @@
-# This file has the global configuration 
-# so we do not have to repeat those in every function 
+""" 
+This file has the global configuration so we do not have to repeat those in every function. 
+
+We can create separate configuration files for production and test system, but they should atleast define the following:
+
+Attributes
+----------
+DATA_ROOT: string 
+    This is the absolute path of data. 
+
+METADATA_PATH: string
+    This is the absolute path of the metadata for our data. The metadata contains information about channels per meter, names and years of meters etc. 
+    Sample metadata files are found in `https://github.com/demand-consults/demand_acep/tree/master/demand_acep/data/properties`.
+    
+METER_CHANNEL_FILE: string
+    This is the absolute path of the files containing the names of channels for each meter. Each meter can have different channels it reads. 
+    An example `METER_CHANNEL_FILE` is here: https://github.com/demand-consults/demand_acep/blob/master/demand_acep/data/properties/NetCDF%20Meter%20File%20Generation%20Matrix%20Copy%20Poker%20Flats.xlsx
+    If the format of this file changes, then the parsing logic below will have to change accordingly.
+
+DATA_YEARS_FILE: string 
+    This is the absolute path of the data years file. This file lists all the years that we have the data for. The code then creates a new table for each meter for each year. 
+    A sample data years file is here: https://github.com/demand-consults/demand_acep/blob/master/demand_acep/data/properties/data_years.txt
+
+METER_NAMES_FILE: string 
+    This is the absolute path of the meter names file. This file lists the names of the all the meters and their type. 
+    A sample `METER_NAMES_FILE` is here: https://github.com/demand-consults/demand_acep/blob/master/demand_acep/data/properties/meter_names.txt
+
+METER_NAMES: list
+    This list contains the names of the meters. 
+
+METER_CHANNEL_DICT: dictionary
+    This dictionary should contain the available meter names as keys and the channels for that meter as values for the corresponding. 
+    The generation of this dictionary is related to the structure of the `METER_CHANNEL_FILE`.
+
+DATA_YEARS: list
+    This list contains the years of the data. 
+
+DATA_START_DATE: datetime.datetime
+    The start date for the data to process. 
+
+DATA_END_DATE: datetime.datetime
+    The end date for the date to process. 
+
+DB_NAME: string
+    The name of the database to create the schema in. This database will store the processed data, with one table per meter per year. 
+
+tsdb_pc_path: string
+    The absolute path of the timescaledb-parallel-copy Go executable.
+
+DB_USER: string 
+    The username to connect to the TimescaleDB with
+
+DB_PASSWORD: string 
+    The password for the TimescaleDB database. 
+
+SAMPLE_TIME: string 
+    The argument needed to downsample the data, 1T = 1 min etc. Please refer to the pandas `resample` documentation here: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html
+
+
+ """
 
 import pandas as pd
 import os, sys
@@ -80,9 +138,3 @@ DB_PWD = "neotao123"
 # sample_time allows the user determine what time interval the data should be resampled at
 # For 1 minute - 1T, 1 hour - 1H, 1 month - 1M, 1 Day - 1D
 SAMPLE_TIME = '1T'
-
-# Data imputation related settings
-# Data Imputation by interpolation
-# interp_method and interp_order allows the user specify the method of interpolation and the order
-INTERP_METHOD = 'spline'
-INTERP_ORDER = 2
