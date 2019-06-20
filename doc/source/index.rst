@@ -19,6 +19,7 @@
    config
    data_plots
    power_forecast
+   demand_charge
 
 Indices and tables
 ==================
