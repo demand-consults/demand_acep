@@ -28,7 +28,7 @@ There are slightly difference between monthly peak demand forecasts of a virtual
 
 # Benefit-cost analysis of involving a virtual meter
 
-A virtual meter could save money by aggregating all the meters resulting in a payment once during a billing cycle as opposed to several billed payments, in this case four times. On the other hand, vitual meter may lead to higher rate per unit kW for the demand charge. For example, the utility has charged `Poker flat` \$14.29 per kW for GS-2 service while GS-3 would involve \$22.89 per kW. So it is necessary to cost-benefit analysis to find saving could happen by implementing a virtual meter. 
+A virtual meter could save money by aggregating all the meters resulting in a payment once during a billing cycle as opposed to several billed payments, in this case four times. On the other hand, vitual meter may lead to higher rate per unit kW for the demand charge. For example, the utility has charged `Poker flat` \$14.29 per kW for GS-2 service while GS-3 would involve \$22.89 per kW. So it is necessary to perform a benefit-cost analysis to find if saving could happen by implementing a virtual meter. 
 
 
 
@@ -89,11 +89,11 @@ Adding customer charge and fuel & purchased power charge, which are fixed during
 </table>
 
 
-It turns out aggregating all the meters by a virtual meter ends up with paying more while having less peak power during a billing cycle as opposed to the aggregation of the peak power of the individual four meters. 
+It turns out aggregating all the meters by a virtual meter ends up with paying less with less peak power during a billing cycle as opposed to the aggregation of the peak power of the individual four meters. 
 
 ![](charge_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 
-The estimated montly saving would be \$-4154.05, which is negative, meaning it is actually losing. 
+The estimated montly saving would be \$3934.4. So the conclusion is having a vurtaul meter is viable and saving money by reducing the billing. 
 
 
