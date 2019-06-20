@@ -96,4 +96,11 @@ It turns out aggregating all the meters by a virtual meter ends up with paying l
 
 The estimated montly saving would be \$3934.4. So the conclusion is having a vurtaul meter is viable and saving money by reducing the billing. 
 
+* Note that the last month in the data, which is April of 2019, has only 10 days data available so the values are relatively lower than other months. 
+
+* There are missing months such as November and December of 2018, and missing days specially in September, 2018 so the total energy consumption and peak power comparatively lower than other months. 
+
+* Nontheless, for the purpose of comparison of the both cases (a virtual meter, and 4 meters), this won't be an issue as it applies the same to the both cases and still make the cases comparable.
+
+
 
