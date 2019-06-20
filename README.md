@@ -4,48 +4,57 @@
 [![Build Status](https://travis-ci.com/demand-consults/demand_acep.svg?branch=master)](https://travis-ci.com/demand-consults/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/demand-consults/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/demand-consults/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest)
 
 
-The `demand_acep` package implements a data-pipeline. The data-pipeline performs three tasks - extraction, transformation and loading. In extraction, the high-resolution (~7 Hz) power meter data for each meter and each channel is read from the NetCDF files to a pandas dataframe. In the transformation step, the 
+The `demand_acep` package implements a data-pipeline. The data-pipeline performs three tasks - Extraction, Transformation and Loading. In extraction, the high-resolution (~7 Hz) power meter data for each meter and each channel is read from the NetCDF files to a pandas dataframe. In the transformation step, the data is down-sampled to a lower resolution (1 minute default), missing data is filled, individual channel data is combined with other channels to create a dataframe down-sampled, filled dataframe per day per meter, and this dataframe is exported to a csv file. So, we have for each day of data, a csv file for each meter containing the data for all channels at a lower resolution. In the loading stage, all the down-sampled data is loaded (copied not inserted for speed) on to the timeseries database, TimescaleDB. The data was copied back from the database to perform the data imputation for the missing days and re-copied to create the complete data. The ETL process is summarised in the poster shown below. 
 
-![](header.png) (logo or some sort of image)
+![Project poster](https://github.com/demand-consults/demand_acep/blob/master/doc/source/_static/demand_acep_poster_cei_day_final.jpg)
+
+All or some steps can be re-used or repeated as desired. Further analysis using the complete data was performed and results have been in presented in the documentation. 
+
 
 ## Installation
-
-Linux:
 
 ```sh
 pip install demand_acep
 ```
+> This package has only been tested on Linux. 
 
 
 ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+Usage examples and further analysis can be seen in the `scripts` folder. 
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
+*  [Extract data to csv](https://github.com/demand-consults/demand_acep/blob/master/scripts/extract_to_csv.ipynb): This file shows how to extract data for a data to csv. This read a data for a day, and performs the transformation and creates CSVs for each meter and described before. 
+* [Extract data for multiple days in parallel](https://github.com/demand-consults/demand_acep/blob/master/scripts/test_multiprocessing_csv.ipynb): This file shows how to use `multi-processing` library in python to extract data for multiple days in parallel. The more cores the system has, the faster the total data can be extracted. 
+* [Copy data in parallel to TimescaleDB database](https://github.com/demand-consults/demand_acep/blob/master/scripts/timescale_parallel_copy.ipynb): This jupyter notebook shows how to copy the csv files to the database in parallel. 
+* [Perform data imputation for long timescales (days-months)](https://github.com/demand-consults/demand_acep/blob/master/scripts/test_large_missing_data.ipynb): This jupyter notebook shows how to perform data imputation for long timescales, essentially when the data was not downloaded for a particular day, or months. 
 
-## Development setup
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
+## Test-Driven Development setup
 
-```sh
-make install
-npm test
-```
+The module supports TDD and includes setup for automatic test runner. To begin development, install [Python 3.6+](https://www.python.org/) using [Anaconda](https://www.anaconda.com/) and [NodeJS](https://nodejs.org/en/) for your platform and then do the following:
+
+* Clone the repository on your machine using `git clone https://github.com/demand-consults/demand_acep`. This will create a copy of this repository on your machine. 
+* Go to the repository folder using `cd demand_acep`. 
+* Get python dependencies using `pip install -r requirements.txt`. 
+* Get the required node modules using `npm install`. Install [Grunt](https://gruntjs.com/api/grunt) globally using `npm install -g grunt`. This step and Nodejs is only required for automated test running. 
+* In a dedicated terminal window run `grunt` on the command line. This will watch for changes to any of the `.py` files in the `demand_acep` folder and run the tests using `pytest`. 
+* Make tests for the functionality you plan to implement in the `tests` folder and add the data needed for tests to the `data` folder located in `demand_acep\data`. 
+
+
+## Updating Documentation
+
+`doc` folder contains the documentation related to the package. To make changes to the documentation, following workflow is suggested:
+
+* From the root directory of the package, i.e. here, run `grunt doc`. This command watches for changes in the `.rst` files in the `doc` folder and runs `make html`. This has the effect of building your documenation on each save. 
+* To view the changes, it is suggested to run a local webserver. This can be done by first installing a webserver with `pip install sauth`, and then running the webserver like so: `sauth <username> <password> localhost <port>` from the `doc` folder in a separate terminal window. Specify a username, password and a port number, for example - 8000. Then navigate to: [http://localhost:8000](http://localhost:8000) in your web-browser and enter the username and password you set while running `sauth`. The live changes to the documentation can be viewed by navigating to the `html` folder in the `build` directory located at `doc\build\html`. 
+* As you make changes to the documentation in the `.rst` files, and re-save them, `grunt doc` automatically updates the `html` folder and changes can be viewed in the browser by refreshing it. 
+
 
 ## Release History
 
-* 0.2.1
-    * CHANGE: Update docs (module code remains unchanged)
-* 0.2.0
-    * CHANGE: Remove `setDefaultXYZ()`
-    * ADD: Add `init()`
-* 0.1.1
-    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
-* 0.1.0
-    * The first proper release
-    * CHANGE: Rename `foo()` to `bar()`
 * 0.0.1
-    * Work in progress
+    * Released to ACEP on 06/21/2019.
+
 
 ## Meta
 
@@ -55,14 +64,8 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 ## Contributing
 
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
+1. Fork it (<https://github.com/demand-consults/demand_acep/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
-
-
-## Project progress
-The Gantt chart below shows our progress. It is regularly updated. 
-
-![Progress Gantt Chart](progress.png)
