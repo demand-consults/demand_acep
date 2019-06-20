@@ -77,6 +77,14 @@ These 4 meters have power (kW) correlated each other for the past 3 years. The c
     correlation
 
 
+Aggregated power (kW) demand charge
+-----------------------------------
+The aggregated total power (kW) on a monthly basis will show the trend of peak demand power over the past 3 years. This will help to analyze the effect of a virtual meter by comparing the separate billing of the four meters and the aggregated billing of the virtual meter. Using ARIMA, the trend of aggregated meter powers were forecasted based on month.
+
+.. toctree::
+
+    dcharge
+
 
 Indices and tables
 ==================
