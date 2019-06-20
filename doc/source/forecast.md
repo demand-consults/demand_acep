@@ -13,20 +13,48 @@ Variances of power (kW) for each meter, verify the correlations found in the pre
 
 A regression model for power of `PQ` shows `Wat3` is the most significant followed by `Wat2` resulting in 0.72 in adjusted R-squared. They are higly correlated. 
 
-
----------------------------------------------------------------
-     &nbsp;        Estimate   Std. Error   t value   Pr(>|t|)  
------------------ ---------- ------------ --------- -----------
- **(Intercept)**    15.73       0.3751      41.94        0     
-
-    **Wat1**       0.003926    0.001164     3.373    0.0007436 
-
-    **Wat2**        2.018      0.01534      131.5        0     
-
-    **Wat3**        1.339      0.005774     231.9        0     
----------------------------------------------------------------
-
-Table: Fitting linear model: PQ ~ Wat1 + Wat2 + Wat3
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>PQ power (kW) regression</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> std.error </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:right;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 15.73 </td>
+   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 41.94 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Wat1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 3.37 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Wat2 </td>
+   <td style="text-align:right;"> 2.02 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 131.52 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Wat3 </td>
+   <td style="text-align:right;"> 1.34 </td>
+   <td style="text-align:right;"> 0.01 </td>
+   <td style="text-align:right;"> 231.90 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
 
 
 
