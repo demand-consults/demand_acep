@@ -127,6 +127,9 @@ def build_interpolation(y_values, n_val):
     # removes the NaN values so as not to skew the performance of the scipy interp1d function.
     y_values = y_values.dropna()
     x = np.linspace(1, len(y_values), num=len(y_values))
+    # x = np.reshape(x, y_values.shape)
+    y_values = np.asarray(y_values).squeeze()
+    # pdb.set_trace()
     # if-else uses a linear interpolation when the number of consecutive missing data points is less than 3.
     #  The number of points to be interpolated has to be greater than 3 points to use the spline/Cubic interpolation
     if len(y_values) <= 3:
@@ -184,7 +187,7 @@ def compute_interpolation(df):
             prev_vals = test_df.iloc[prev_idx:val[0]]
             next_vals = test_df.iloc[val[0] + 1: next_idx + 1]
         y_values = prev_vals.append(next_vals)
-        y_interp = build_interpolation(y_values, len(val))
+        y_interp = build_interpolation(y_values, n_grp)
         test_df.iloc[val] = y_interp
 
     return test_df
@@ -215,4 +218,40 @@ def data_impute(impute_df):
             impute_df = impute_df.apply(compute_interpolation)
 
     return impute_df
+
+
+def long_missing_data_prep(dirpath, filename):
+    """
+        This function prepares a dataset in a `csv` format with missing days, months or years for interpolation
+        using the `data_impute` function. It fills in the missing time as a 'DateTimeIndex' and assigns a value
+        of NaN to the missing data points.
+
+        Parameters
+        ----------
+        dirpath :
+            `dirpath` is the directory path location of the csv file containing the missing data points in already
+            down-sampled to a 1-Minute interval.
+        filename :
+            `filename` is the csv file containing the missing data points to be read.
+
+        Returns
+        -------
+        Dataframe
+            pandas dataframe with 'DateTimeIndex' and value of NaN assigned to the missing data points.
+        """
+    # Reads dataset into a Pandas Dataframe
+    meter_df = pd.read_csv(os.path.join(dirpath, filename))
+    # Converts the time column to a DateTimeIndex format
+    meter_df.set_index(pd.to_datetime(meter_df['time']), inplace=True)
+    st_time = meter_df['time'].iloc[0]
+    sp_time = meter_df['time'].iloc[-1]
+    # Generates a date time range at an interval of 1 minute from the start and end date of the dataset.
+    date_idx = pd.date_range(start=st_time, end=sp_time, freq='1T')
+    meter_df.drop(columns=['time'], inplace=True)
+    # Reindex the dataframe to include the DateTimeIndex for the missing days and NaN values for missing points
+    meter_mod_df = meter_df.reindex(date_idx)
+
+    return meter_mod_df
+
+
 

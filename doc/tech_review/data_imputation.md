@@ -6,7 +6,8 @@ After reading the ACEP measurement data into a timeseries database, the next ste
 3. [Scipy Interpolation](https://docs.scipy.org/doc/scipy/reference/interpolate.html#univariate-interpolation)/[Pandas Interpolation](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html)
 4. [FancyImpute](https://github.com/iskandr/fancyimpute)
 
-Of these imputation modules, impyute was chosen to be used primarily because of its ability to deal with time series data imputation. Since the ACEP dataset is a time series data, methods such as autoregressive moving averages,  moving windows and last observation carried forward will be more useful and these methods are available in the impyute module. The other modules especially the FancyImpute handles random missing data by using the mean, median, mode of the data or training a regression model or a nearest neighbor model to determine the missing data. 
+While these modules are useful in their own right, they were unable to handle the varying case scenarios encountered while processing the data. Ultimately, a more robust and versatile interpolation function was written to cater to the specific needs of the ACEP measurement data.
+
 
 Some useful literature and articles on data imputation are:
 1. Discusses general methods used for data imputation - (https://towardsdatascience.com/how-to-handle-missing-data-8646b18db0d4)
