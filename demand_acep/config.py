@@ -2,15 +2,19 @@
 # so we do not have to repeat those in every function 
 
 import pandas as pd
+import os, sys
+import datetime
 
 # This is for production environment
 # The tests will define these paths separately
 print("Config imported")
-DATA_ROOT = "/data/data"
-METADATA_PATH = "/home/ubuntu/demand_acep/demand_acep/data/properties/"
-METER_CHANNEL_FILE = METADATA_PATH + "NetCDF Meter File Generation Matrix Copy Poker Flats.xlsx"
-DATA_YEARS_FILE = METADATA_PATH + "data_years.txt"
-METER_NAMES_FILE = METADATA_PATH + "meter_names.txt"
+DATA_ROOT = "/gscratch/stf/demand_acep/Data"
+
+dirname = os.path.dirname(__file__)
+METADATA_PATH = os.path.join(dirname, "data/properties/")
+METER_CHANNEL_FILE = os.path.join(METADATA_PATH, "NetCDF Meter File Generation Matrix Copy Poker Flats.xlsx")
+DATA_YEARS_FILE = os.path.join(METADATA_PATH, "data_years.txt")
+METER_NAMES_FILE = os.path.join(METADATA_PATH, "meter_names.txt")
 
 # Get meter names from meter names file 
 meter_names_df = pd.read_csv(METER_NAMES_FILE)
@@ -58,8 +62,19 @@ years_df = pd.read_csv(DATA_YEARS_FILE)
 
 DATA_YEARS = years_df['years'].values.tolist()
 
+
+# Data start and end date
+DATA_START_DATE = datetime.datetime(2017, 11, 1)
+DATA_END_DATE = datetime.datetime(2019, 4, 30)
+
 # Database name 
 DB_NAME = 'demand_acep'
+#  path of timescaledb-parallel-copy
+tsdb_pc_path = "/gscratch/stf/demand_acep/go/bin"
+# DB username 
+DB_USER = "cp84"
+# DB password
+DB_PWD = "neotao123"
 
 # Downsampling duration
 # sample_time allows the user determine what time interval the data should be resampled at

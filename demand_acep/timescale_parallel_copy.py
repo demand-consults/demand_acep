@@ -8,7 +8,6 @@ import pandas as pd
 import pdb
 import datetime
 import io
-from daterangeparser import parse
 import glob
 import multiprocessing
 import subprocess
@@ -56,23 +55,25 @@ def parallel_copy_data_for_date(config, data_date):
     meter_collection = {}
     meter_pickle_names = {}
     # Path of the tsdb parallel copy go executable
-    timescaledb_parallel_copy_path = "timescaledb-parallel-copy"
+    timescaledb_parallel_copy_path = os.path.join(config.tsdb_pc_path, "timescaledb-parallel-copy")
     db_name = config.DB_NAME
+    db_username = config.DB_USER
+    db_pwd = config.DB_PWD
     # Get the CPU count for parallelizing the process
     num_workers = multiprocessing.cpu_count()
     # Change this based on the database location and user
-    connection_string = 'host=localhost user=tsdb_user password=husky123 sslmode=disable'
+    connection_string = 'host=localhost user={0} password={1} sslmode=disable'.format(db_username, db_pwd)
     
     
     for fname in glob.glob(os.path.join(data_path, '*.csv')):
-        print(os.path.basename(fname))
+        # print(os.path.basename(fname))
         file_name = os.path.basename(fname)
         table_name = file_name.split('@')[0] + '_' + data_year
         parallel_copy_cmd = [timescaledb_parallel_copy_path, '--db-name', 
                             db_name, '--table', table_name, '--file', fname, 
                             '--workers', str(num_workers), '--connection', 
                             connection_string, '--skip-header', 'true']
-        print(parallel_copy_cmd)
+        # print(parallel_copy_cmd)
         pcopy = subprocess.run(parallel_copy_cmd, encoding='utf-8', stdout=subprocess.PIPE)
         for line in pcopy.stdout.split('\n'):
             print(line)
