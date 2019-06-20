@@ -69,7 +69,9 @@ For each meter (PQ, Wat1, Wat2, and Wat3), there are four plots showing the powe
 
 Power (kW) correlation and forecast
 -----------------------------------
-These 4 meters have power (kW) correlated each other for the past 3 years. The correlations are various depending upon the comparisons. In general, power in `PQ` meter is mostly correlated with power in `Wat3`. This founding is interesting as the more correlated, the more dependency resulting in less effective to address load reduction of having a virtual meter, are expected. Using ARIMA, power trends of each meter were forecasted based on month, which is the billing cycle for demand charge. The power trends were plotted with maximum value of the peak power during the month because the peak power decides the billing cost. For the comparison, forecasts based on day, were also plotted. The range between the upper and lower bound of forecast shows narrower than the one based on month.
+These 4 meters have power (kW) correlated each other for the past 3 years. The correlations are various depending upon the comparisons. In general, power in `PQ` meter is mostly correlated with power in `Wat3`. This founding is interesting as the more correlated, the more dependency resulting in less effective to address load reduction of having a virtual meter, are expected. Using ARIMA, power trends of each meter were forecasted based on month, which is the billing cycle for demand charge. The power trends were plotted with maximum value of the peak power during the month because the peak power decides the billing cost. For the comparison, forecasts based on day, were also plotted. The range between the upper and lower bound of forecast shows narrower than the one based on month. Using ARIMA, the trend of aggregated meter powers were forecasted based on month.
+
+.. toctree::
 
 
 .. toctree::
@@ -79,10 +81,9 @@ These 4 meters have power (kW) correlated each other for the past 3 years. The c
 
 Aggregated power (kW) demand charge
 -----------------------------------
-The aggregated total power (kW) on a monthly basis will show the trend of peak demand power over the past 3 years. This will help to analyze the effect of a virtual meter by comparing the separate billing of the four meters and the aggregated billing of the virtual meter. Using ARIMA, the trend of aggregated meter powers were forecasted based on month.
+Having a virtual meter by aggregating all the power consumptions of all four meters, reduces the peak demand as shown in the Figure below. Every month has less peak demand by a virtual meter compared to summing up all the peak demand of the individual meters during a billing cycle. A virtual meter could save money by aggregating all the meters resulting in a payment once during a billing cycle as opposed to several billed payments, in this case four times. On the other hand, virtual meter may lead to higher rate per unit kW for the demand charger. For example, the utility has charged Poker flat $14.29 per kW for GS-2 service while GS-3 would involve $22.89 per kW. So it is necessary to cost-benefit analysis to find saving could happen by implementing a virtual meter. On the other hand, GS-3 service has higher utility charge of $0.0294 per kWh while GS-2 has $0.06256 per kWh. The monthly power consumption for each meter and the total are shown in the figure below.
 
 .. toctree::
-
     dcharge
 
 

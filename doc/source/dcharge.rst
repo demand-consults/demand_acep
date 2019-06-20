@@ -1,9 +1,9 @@
-================================
-Power correlation and forecasts
-================================
+=====================================
+Virtual meter impact on demand charge
+=====================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Power (kW) association of 4 meters and forecasts
+   :caption: Peak power and benefit-cost analysis
 
    charge
