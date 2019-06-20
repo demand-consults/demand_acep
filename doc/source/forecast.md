@@ -14,7 +14,7 @@ Variances of power (kW) for each meter, verify the correlations found in the pre
 A regression model for power of `PQ` shows `Wat3` is the most significant followed by `Wat2` resulting in 0.72 in adjusted R-squared. They are higly correlated. 
 
 <table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
-<caption>PQ power (kW) regression</caption>
+<caption>PQ power (kW) regression in Wat1, Wat2 and Wat3</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> term </th>
@@ -73,10 +73,14 @@ It was expected that power for PQ would be around 125 kW for the last 3 months a
 
 ### Density of maximum peak power (kW)
 
+The density plot shows the distribution of the monthly peak power for each meter. For `PQ`, peak power around 125 kW is mostly prevalent, which means there is more probability that `PQ` peak power would be around 125 kW. 
+
 ![](forecast_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 
 ### Prediction performance for the last 3 months
+
+ARIMA predicted the peak power for the last 3 months, which is February, March, and April given the previous peak power data from November, 2017 to January, 2019. Since there are 2 months missing (November and December of 2018), the months used for the prediction were 13 months. Given the historical data of 13 months, the model predicts the coming 3 months and it is quite accurate as around 125 kW compared to the real values for these months, 114, 107, and 131 kW respectively. 
 
 ![](forecast_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
@@ -148,6 +152,8 @@ For the comparison, forecastes based on day, were also plotted. The range betwee
 ![](forecast_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 ### Prediction performance for the last 10 days
+
+There are total 413 days previously available since November 2017 till April 2019. Given the 404 days, rest of 10 days were predicted from 405th day to 413th day as below in the figure. 
 
 ![](forecast_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
