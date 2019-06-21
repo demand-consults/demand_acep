@@ -16,9 +16,11 @@
    power_meters
    data_years
    data_pipeline
+   data_imputation
    config
    data_plots
    power_forecast
+   load_synthesis
    demand_charge
 
 Indices and tables
