@@ -4,6 +4,12 @@ Configuration
 
 The configuration is specified in one file and then called in functions, as it makes project maintainence easier and promotes re-use. A separate configuration file can be created for production and test environments. A sample configuraiton file is as below: 
 
+.. warning::
+   The example config file below shows the database username password being declared here. Therefore, this file if used as is, should never be committed to git/github/version control system and not be exposed to the internet. 
+
+   Bad things can happen otherwise!
+   
+
 Sample :code:`config.py`
 ========================
 
@@ -136,14 +142,27 @@ Sample :code:`config.py`
     DATA_START_DATE = datetime.datetime(2017, 11, 1)
     DATA_END_DATE = datetime.datetime(2019, 4, 30)
 
-    # Database name 
-    DB_NAME = 'demand_acep'
-    #  path of timescaledb-parallel-copy
-    tsdb_pc_path = "/gscratch/stf/demand_acep/go/bin"
+    #######################################################
+    ############ Database related configuration ###########
+    #######################################################
+
+
+    # Datebase IP address
+    DB_ADDRESS = "localhost"
+    # Database port 
+    DB_PORT = 5432
+    ################################################################
+    ############### !!!! NEVER COMMIT THE CREDENTIALS TO GIT !!!!!!!
+    ################# Only demonstrated here as an example #########
+    ################################################################
     # DB username 
     DB_USER = "cp84"
     # DB password
     DB_PWD = "neotao123"
+    # Database name 
+    DB_NAME = 'demand_acep'
+    #  path of timescaledb-parallel-copy
+    tsdb_pc_path = "/gscratch/stf/demand_acep/go/bin"
 
     # Downsampling duration
     # sample_time allows the user determine what time interval the data should be resampled at

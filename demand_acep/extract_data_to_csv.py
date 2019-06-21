@@ -33,8 +33,8 @@ def extract_csv_for_date(config, data_date):
 
     Returns
     -------
-    int
-        Description of anonymous integer return value.
+    list
+        Names of the csv's written to disk.
     """    
     
     ### TODO: test config separately 
@@ -89,9 +89,9 @@ def extract_csv_for_date(config, data_date):
     # containing the data for the day
     meter_collection = {}
     
-    for meter_name in config.METER_CHANNEL_DICT:
-        # Create an empty dataframe, the columns will be created later
-        meter_collection[meter_name] = pd.DataFrame()
+    # for meter_name in config.METER_CHANNEL_DICT:
+    #     # Create an empty dataframe, the columns will be created later
+    #     meter_collection[meter_name] = pd.DataFrame()
 
     #print(meter_collection)
     if os.path.exists(data_path):
@@ -106,11 +106,15 @@ def extract_csv_for_date(config, data_date):
                 if filename.lower().endswith('.nc'):
                     # For the particular file, find out the corresponding meter and channel 
                     [meter, channel] = extract_ppty(filename, config.METER_CHANNEL_DICT.keys())
-                    # Form the resulting csv name from the meter name
+                    # Create an entry in the `meter_collection` dict if it does not exist yet
+                    if meter not in meter_collection:
+                        meter_collection[meter] = pd.DataFrame()
+                    # Form the resulting csv name from the meter name if it doesnt exist yet
                     # They are of the type - meter_name@Timestamp@Duration@Frequency
                     # For e.g.: PQube3@2017-11-01T080002Z@PT23H@PT227F.cs
                     #print(meter, channel)
-                    meter_csv_names[meter] = '@'.join([meter, '@'.join(filename.split('@')[1:4])])[:-3] + '.csv'
+                    if meter not in meter_csv_names:
+                        meter_csv_names[meter] = '@'.join([meter, '@'.join(filename.split('@')[1:4])])[:-3] + '.csv'
                     #print(meter_csv_names)
                     # Get the full path of the csv
                     csv_name = os.path.join(data_path, meter_csv_names[meter])

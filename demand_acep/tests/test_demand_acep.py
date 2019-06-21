@@ -13,6 +13,7 @@ import pdb
 import pytest
 import copy
 import importlib
+import unittest
 
 from itertools import groupby
 from operator import itemgetter
@@ -29,8 +30,6 @@ from demand_acep import compute_interpolation
 from demand_acep import build_interpolation
 from demand_acep import long_missing_data_prep
 from extract_data_to_csv import extract_csv_for_date
-
-
 # %% Paths
 path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # dirpath = os.path.join(path, 'data/measurements/2018/07/01')
@@ -88,7 +87,7 @@ def test_data_impute():
 
     return
 
-def test_extract_csv_for_date():
+def test_extract_csv_for_date_badIn():
     
     # Test that bad input throws the right kind of exceptions 
     
@@ -141,13 +140,51 @@ def test_extract_csv_for_date():
     return 
 
 
-def test_config_file():
-    """
-    This function tests the config file. 
-    """
+def test_extract_csv_for_date():
+    # Test date 
+    test_data_date = '2019/01/03'
+    # Re-import the config to make changes for this test
+    test_config1 = importlib.reload(config)
+    # Get the new DATA_ROOT to the location of the test data
+    test_config1.DATA_ROOT = os.path.join(test_config1.DATA_ROOT, 'part_data')
+    # Run the test function with the inputs
+    test_csv_names = extract_csv_for_date(test_config1, test_data_date)
+    print(test_csv_names)
+    # Test the output filenames
+    # Get correct names
+    correct_csv_path = os.path.join(test_config1.DATA_ROOT, test_data_date, "correct_csvs")
+    print(correct_csv_path)
+    correct_names = [f for f in os.listdir(correct_csv_path) if os.path.isfile(os.path.join(correct_csv_path, f))]
+    print(correct_names)
+    # test_names_result = all(elem in correct_names for elem in test_csv_names)
+    assert(checkEqual(correct_names, list(test_csv_names.values())), "The output csv names do not match the expected name format - meter_name@date@freq.csv")
+
+    # Test the output values
+    # Read in the correct csvs 
+    correct_dfs = {}
+    for dirpath, dirnames, correct_csvfiles in os.walk(correct_csv_path, topdown=True):
+        for csvfilename in correct_csvfiles:
+            csvfile_abspath = os.path.join(correct_csv_path, csvfilename)
+            correct_dfs[csvfilename] = pd.read_csv(csvfile_abspath, header=None)
     
+    test_csv_path = os.path.join(test_config1.DATA_ROOT, test_data_date)
+    test_dfs = {}
+    for dirpath, dirnames, test_files in os.walk(test_csv_path, topdown=True):
+        for filename in test_files:
+            if filename.lower().endswith('.csv'):
+                csvfile_abspath = os.path.join(test_csv_path, filename)
+                test_dfs[filename] = pd.read_csv(csvfile_abspath, header=None)
+                # Remove the NA columns - these are introduced since we have only two channels
+                test_dfs[filename].dropna(axis=1, inplace=True)
+
+    # Check if the dataframes in correct_dfs and test_dfs are equal 
+    for csvname in correct_dfs:
+        correct_df = correct_dfs[csvname]
+        test_df = test_dfs[csvname]
+        pd.testing.assert_frame_equal(test_df, correct_df)
 
     return 
+
 
 def test_build_interpolation():
     df = extract_data(dirpath, filename)
@@ -231,6 +268,7 @@ def test_long_missing_data_prep():
 
     return
 
-
-
-
+# Taken from https://stackoverflow.com/a/12813909/1328232
+# To check the equality of two lists
+def checkEqual(L1, L2):
+    return len(L1) == len(L2) and sorted(L1) == sorted(L2)
