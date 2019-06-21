@@ -13,7 +13,7 @@ It turns out having a virtual meter by aggregating all the power consumptions of
 
 ## Density of maximum peak power (kW)
 
-The figure below shows by having a virtual meter, the peak demand density becomes lower.
+The figure below shows by having a virtual meter, the peak demand density becomes lower. It shows the distribution of peak power or probability that what value of peak power (kW) is highly expected for the cases of a virtual meter scenario and the total of the individual 4 meters. It shows that having a virtual meter reduced the probability of higher peak power across months. 
 
 ![](charge_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
@@ -28,11 +28,11 @@ There are slightly difference between monthly peak demand forecasts of a virtual
 
 # Benefit-cost analysis of involving a virtual meter
 
-A virtual meter could save money by aggregating all the meters resulting in a payment once during a billing cycle as opposed to several billed payments, in this case four times. On the other hand, vitual meter may lead to higher rate per unit kW for the demand charge. For example, the utility has charged `Poker flat` \$14.29 per kW for GS-2 service while GS-3 would involve \$22.89 per kW. So it is necessary to cost-benefit analysis to find saving could happen by implementing a virtual meter. 
+A virtual meter could save money by aggregating all the meters resulting in a payment once during a billing cycle as opposed to several billed payments, in this case four times. On the other hand, vitual meter may lead to higher rate per unit kW for the demand charge. For example, the utility has charged `Poker flat` \$14.29 per kW for GS-2 service while GS-3 would involve \$22.89 per kW. So it is necessary to perform a benefit-cost analysis to find if saving could happen by implementing a virtual meter. 
 
 
 
-On the other hand, GS-3 service has higher utility charge of \$0.0294 per kWh while GS-2 has \$0.06256 per kWh. The monthly power consumption for each meter and the total are shown in the figure below. 
+On the other hand, GS-3 service has higher utility charge of \$0.0294 per kWh while GS-2 has \$0.06256 per kWh. The monthly power consumption for each meter and the total are shown in the figure below. Note that the energy consumption value is for each month in order since November 2017 to April 2019. 
 
 ![](charge_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
@@ -89,11 +89,23 @@ Adding customer charge and fuel & purchased power charge, which are fixed during
 </table>
 
 
-It turns out aggregating all the meters by a virtual meter ends up with paying more while having less peak power during a billing cycle as opposed to the aggregation of the peak power of the individual four meters. 
+It turns out aggregating all the meters by a virtual meter ends up with paying less with less peak power during a billing cycle as opposed to the aggregation of the peak power of the individual four meters. Note that a specific month has a negative saving meaning that the virtual meter option loses money. It is interesting to see that it would be more beneficial to have a virtual meter when higher energy consumption (kWh) is expected leading to more profitable option. The highest saving would be \$6726.9 on 2018-01 and the lowest, \$-2782.4 on 2018-09, where the negative saving is due to the lower energy consumption on the month resulting from data missing. 
 
 ![](charge_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
+The saving distribution is as below showing the most savings would occur between \$4,000 to \$7,000 a month. 
 
-The estimated montly saving would be \$-4154.05, which is negative, meaning it is actually losing. 
+![](charge_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+
+
+
+The estimated average montly saving would be \$3934.4 due to its skewness to left. So the conclusion is having a vurtaul meter is viable and saving money by reducing the billing. 
+
+* Note that the last month in the data, which is April of 2019, has only 10 days data available so the values are relatively lower than other months. 
+
+* There are missing months such as November and December of 2018, and missing days specially in September, 2018 so the total energy consumption and peak power comparatively lower than other months. 
+
+* Nontheless, for the purpose of comparison of the both cases (a virtual meter, and 4 meters), this won't be an issue as it applies the same to the both cases and still make the cases comparable.
+
 
 

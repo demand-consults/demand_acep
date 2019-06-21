@@ -1,10 +1,10 @@
 # demand_acep
-> Python package to help reduce demand charges.
+> Python package to implement data-pipeline to process high-resolution power meter data. 
 
-[![Build Status](https://travis-ci.com/demand-consults/demand_acep.svg?branch=master)](https://travis-ci.com/demand-consults/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/demand-consults/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/demand-consults/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest) <a href="https://github.com/ambv/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a> [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/demand-consults/demand_acep/master)
+[![Build Status](https://travis-ci.com/demand-consults/demand_acep.svg?branch=master)](https://travis-ci.com/demand-consults/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/demand-consults/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/demand-consults/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest)
 
 
-One to two paragraph statement about your product and what it does. And maybe give detailed uses in the documentation.
+The `demand_acep` package implements a data-pipeline. The data-pipeline performs three tasks - extraction, transformation and loading. In extraction, the high-resolution (~7 Hz) power meter data for each meter and each channel is read from the NetCDF files to a pandas dataframe. In the transformation step, the 
 
 ![](header.png) (logo or some sort of image)
 
