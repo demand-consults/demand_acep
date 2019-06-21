@@ -1,13 +1,3 @@
----
-title: "Demand charge analysis"
-output:
-  html_document:
-    keep_md: yes
-  pdf_document: default
----
-
-
-
 # Total aggregated power (kW) for demand charge based on month
 
 The aggregated total power (kW) on a monthly basis will show the trend of peak demand power over the past 3 years. This will help to analyze the effect of a virtual meter by comparing the separate billing of the four meters and the aggregated billing of the virtual meter. 
