@@ -27,10 +27,7 @@ CLASSIFIERS = ["Development Status :: 3 - Alpha",
 # Description should be a one-liner:
 description = "demand_acep : A package for demand charge reduction for ACEP"
 # Long description will go up on the pypi page
-long_description = """
-
-
-"""
+long_description = "Python package to implement data-pipeline to process high-resolution power meter data. For documentation refer to: https://demand-acep.readthedocs.io/en/latest/"
 
 NAME = "demand_acep"
 MAINTAINER = "Chintan Pathak, Yohan Min, Atinuke Ademola-Idowu"
@@ -41,7 +38,7 @@ URL = "http://github.com/demand-consults/demand_acep"
 DOWNLOAD_URL = ""
 LICENSE = "MIT"
 AUTHOR = "Chintan Pathak, Yohan Min, Atinuke Ademola-Idowu"
-AUTHOR_EMAIL = ""
+AUTHOR_EMAIL = "cp84@uw.edu, min25@uw.edu, aidowu@uw.edu"
 PLATFORMS = "OS Independent"
 MAJOR = _version_major
 MINOR = _version_minor
