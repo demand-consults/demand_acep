@@ -1,0 +1,6 @@
+Service Type,Customer Charge [$/month],Utility Charge [$/kWh],Fuel & Purchased Power Charge [$/kWh],Demand Charge [$/kW]
+Residential,17.5,0.11631,0.09207,0
+GS-1,20,0.11528,0.09207,0
+GS-2(S),30,0.06256,0.09207,14.29
+GS-2(P),30,0.06256,0.09207,14.29
+GS-3,295,0.0294,0.09207,22.86
