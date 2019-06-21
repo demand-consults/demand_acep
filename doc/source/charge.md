@@ -99,7 +99,7 @@ The saving distribution is as below showing the most savings would occur between
 
 
 
-The estimated average montly saving would be \$3934.4 due to its skewness to left So the conclusion is having a vurtaul meter is viable and saving money by reducing the billing. 
+The estimated average montly saving would be \$3934.4 due to its skewness to left. So the conclusion is having a vurtaul meter is viable and saving money by reducing the billing. 
 
 * Note that the last month in the data, which is April of 2019, has only 10 days data available so the values are relatively lower than other months. 
 
