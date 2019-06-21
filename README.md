@@ -1,12 +1,17 @@
 # demand_acep
 > Python package to implement data-pipeline to process high-resolution power meter data. 
 
-[![Build Status](https://travis-ci.com/demand-consults/demand_acep.svg?branch=master)](https://travis-ci.com/demand-consults/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/demand-consults/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/demand-consults/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest)
+[![Build Status](https://travis-ci.com/demand-consults/demand_acep.svg?branch=master)](https://travis-ci.com/demand-consults/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/chintanp/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/chintanp/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest)
 
 
-The `demand_acep` package implements a data-pipeline. The data-pipeline performs three tasks - Extraction, Transformation and Loading. In extraction, the high-resolution (~7 Hz) power meter data for each meter and each channel is read from the NetCDF files to a pandas dataframe. In the transformation step, the data is down-sampled to a lower resolution (1 minute default), missing data is filled, individual channel data is combined with other channels to create a dataframe down-sampled, filled dataframe per day per meter, and this dataframe is exported to a csv file. So, we have for each day of data, a csv file for each meter containing the data for all channels at a lower resolution. In the loading stage, all the down-sampled data is loaded (copied not inserted for speed) on to the timeseries database, TimescaleDB. The data was copied back from the database to perform the data imputation for the missing days and re-copied to create the complete data. The ETL process is summarised in the poster shown below. 
+## Overview 
+The `demand_acep` package implements a data-pipeline. The data-pipeline performs three tasks - Extraction, Transformation and Loading (ETL). 
 
-![Project poster](https://github.com/demand-consults/demand_acep/blob/master/doc/source/_static/demand_acep_poster_cei_day_final.jpg)
+* **Extract**: The high-resolution (~7 Hz) power meter data for each meter and each channel is read from the NetCDF files to a pandas dataframe. 
+* **Transform**: The data is down-sampled to a lower resolution (1 minute default), missing data is filled, individual channel data is combined with other channels to create a dataframe down-sampled, filled dataframe per day per meter, and this dataframe is exported to a csv file. So, we have for each day of data, a csv file for each meter containing the data for all channels at a lower resolution. 
+* **Load**: All the down-sampled data is loaded (copied not inserted for speed) on to the timeseries database, TimescaleDB. The data was copied back from the database to perform the data imputation for the missing days and re-copied to create the complete data. The ETL process is summarised in the poster shown below. 
+
+![Project poster](https://github.com/demand-consults/demand_acep/blob/master/doc/source/_static/demand_acep_poster_cei_day_final.jpg | width=500)
 
 All or some steps can be re-used or repeated as desired. Further analysis using the complete data was performed and results have been in presented in the documentation. 
 
@@ -27,6 +32,7 @@ Usage examples and further analysis can be seen in the `scripts` folder.
 * [Extract data for multiple days in parallel](https://github.com/demand-consults/demand_acep/blob/master/scripts/test_multiprocessing_csv.ipynb): This file shows how to use `multi-processing` library in python to extract data for multiple days in parallel. The more cores the system has, the faster the total data can be extracted. 
 * [Copy data in parallel to TimescaleDB database](https://github.com/demand-consults/demand_acep/blob/master/scripts/timescale_parallel_copy.ipynb): This jupyter notebook shows how to copy the csv files to the database in parallel. 
 * [Perform data imputation for long timescales (days-months)](https://github.com/demand-consults/demand_acep/blob/master/scripts/test_large_missing_data.ipynb): This jupyter notebook shows how to perform data imputation for long timescales, essentially when the data was not downloaded for a particular day, or months. 
+* [Read from database to pandas dataframe](https://github.com/demand-consults/demand_acep/blob/master/scripts/read_sql.ipynb): This jupyter notebook shows how to read the data from a postgres (TimescaleDB) database into a dataframe. 
 
 
 ## Test-Driven Development setup
