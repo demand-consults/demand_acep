@@ -1,3 +1,4 @@
 {
-    "restructuredtext.confPath": "${workspaceFolder}\\doc\\source"
+    "python.pythonPath": "/Users/Tinu/miniconda3/envs/acep/bin/python",
+    "restructuredtext.confPath": "${workspaceFolder}/doc/source"
 }
