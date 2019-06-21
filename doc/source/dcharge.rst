@@ -6,4 +6,4 @@ Virtual meter impact on demand charge
    :maxdepth: 2
    :caption: Peak power and benefit-cost analysis
 
-   charge
+   charge_filled
