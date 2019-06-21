@@ -7,3 +7,6 @@ omit =
     *tests*
     */tests*
     */version.py
+    */config.py
+    */create_db_schema.py
+    */timescale_parallel_copy.py
