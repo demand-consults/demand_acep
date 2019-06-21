@@ -125,14 +125,27 @@ DATA_YEARS = years_df['years'].values.tolist()
 DATA_START_DATE = datetime.datetime(2017, 11, 1)
 DATA_END_DATE = datetime.datetime(2019, 4, 30)
 
-# Database name 
-DB_NAME = 'demand_acep'
-#  path of timescaledb-parallel-copy
-tsdb_pc_path = "/gscratch/stf/demand_acep/go/bin"
+#######################################################
+############ Database related configuration ###########
+#######################################################
+
+
+# Datebase IP address
+DB_ADDRESS = "localhost"
+# Database port 
+DB_PORT = 5432
+################################################################
+############### !!!! NEVER COMMIT THE CREDENTIALS TO GIT !!!!!!!
+################# Only demonstrated here as an example #########
+################################################################
 # DB username 
 DB_USER = "cp84"
 # DB password
 DB_PWD = "neotao123"
+# Database name 
+DB_NAME = 'demand_acep'
+#  path of timescaledb-parallel-copy
+tsdb_pc_path = "/gscratch/stf/demand_acep/go/bin"
 
 # Downsampling duration
 # sample_time allows the user determine what time interval the data should be resampled at

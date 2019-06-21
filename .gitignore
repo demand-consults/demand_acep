@@ -1,11 +1,11 @@
-<<<<<<< HEAD
+
 *.py[co]
 *~
 *.DS_Store
 _build/
 auto_examples/
 gen_api/
-=======
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -110,8 +110,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
->>>>>>> fe2d10600fe6d5743c87fb89dbd450b77fd54cfe
-
 
 # Ignore the data files
 data/
@@ -123,3 +121,6 @@ node_modules/
 
 # Pycharm related folder
 .idea
+
+# vscode related stuff
+.vscode
