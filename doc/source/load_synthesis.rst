@@ -26,4 +26,4 @@ Unfortunately, the performance of GAN on the ACEP measurement data was quite poo
 The code used in generating the results above can be found in `load_synthesis.ipynb`_
 
 
-.. _load_synthesis.ipynb: https://github.com/demand-consults/demand_acep/blob/master/scripts/test_data_impute.ipynb 
+.. _load_synthesis.ipynb: https://github.com/demand-consults/demand_acep/blob/master/scripts/load_synthesis.ipynb
