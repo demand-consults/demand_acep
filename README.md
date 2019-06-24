@@ -1,7 +1,7 @@
 # demand_acep
 > Python package to implement data-pipeline to process high-resolution power meter data. 
 
-[![Build Status](https://travis-ci.com/demand-consults/demand_acep.svg?branch=master)](https://travis-ci.com/demand-consults/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/demand-consults/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/demand-consults/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://badge.fury.io/py/demand-acep.svg)](https://badge.fury.io/py/demand-acep)
+[![Build Status](https://travis-ci.com/demand-consults/demand_acep.svg?branch=master)](https://travis-ci.com/demand-consults/demand_acep) [![Coverage Status](https://coveralls.io/repos/github/chintanp/demand_acep/badge.svg?branch=master)](https://coveralls.io/github/chintanp/demand_acep?branch=master) [![Documentation Status](https://readthedocs.org/projects/demand-acep/badge/?version=latest)](https://demand-acep.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://badge.fury.io/py/demand-acep.svg)](https://badge.fury.io/py/demand-acep)
 
 
 ## Overview 
