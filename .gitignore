@@ -125,3 +125,4 @@ node_modules/
 
 # vscode related stuff
 .vscode
+.Rproj.user
