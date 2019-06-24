@@ -115,6 +115,7 @@ venv.bak/
 data/
 # DO not ignore the data files in demand_acep
 !demand_acep/data
+!demand_charge/data
 
 # Ignore node_modules
 node_modules/
