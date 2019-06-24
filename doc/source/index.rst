@@ -18,10 +18,10 @@
    data_pipeline
    data_imputation
    config
-   plot
-   correlation
+   data_plots
+   power_forecast
    load_synthesis
-   dcharge
+   demand_charge
 
 Indices and tables
 ==================
