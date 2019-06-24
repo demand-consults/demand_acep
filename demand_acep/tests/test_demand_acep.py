@@ -139,6 +139,11 @@ def test_extract_csv_for_date_badIn():
     with pytest.raises(ValueError):
         extract_csv_for_date(config_5, data_date_5)
     
+    config_6 = importlib.reload(config)
+    data_date_6 = "10/01/2019"
+    
+    with pytest.raises(ValueError):
+        extract_csv_for_date(config_6, data_date_6)
     return 
 
 
