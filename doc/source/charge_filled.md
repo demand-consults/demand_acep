@@ -32,11 +32,9 @@ There are slightly difference between monthly peak demand forecasts of a virtual
 
 A virtual meter could save money by aggregating all the meters resulting in a payment once during a billing cycle as opposed to several billed payments, in this case four times. On the other hand, vitual meter may lead to higher rate per unit kW for the demand charge. For example, the utility has charged `Poker flat` \$14.29 per kW for GS-2 service while GS-3 would involve \$22.89 per kW. So it is necessary to perform a benefit-cost analysis to find if saving could happen by implementing a virtual meter. 
 
-
-
 On the other hand, GS-3 service has higher utility charge of \$0.0294 per kWh while GS-2 has \$0.06256 per kWh. The monthly power consumption for each meter and the total are shown in the figure below. Note that the energy consumption value is for each month in order since November 2017 to April 2019. 
 
-![](charge_filled_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](charge_filled_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 Adding customer charge and fuel & purchased power charge, which are fixed during a month, the total estimated electricity costs for the both cases (1) payments for the individual 4 meters, and (2) a payment for the virtual meter, were caculated. 
 
@@ -93,11 +91,11 @@ Adding customer charge and fuel & purchased power charge, which are fixed during
 
 It turns out aggregating all the meters by a virtual meter ends up with paying less with less peak power during a billing cycle as opposed to the aggregation of the peak power of the individual four meters. Note that a specific month has a negative saving meaning that the virtual meter option loses money. It is interesting to see that it would be more beneficial to have a virtual meter when higher energy consumption (kWh) is expected leading to more profitable option. The highest saving would be \$7169.3 on 2018-01 and the lowest, \$-877.89 on 2019-04, where the negative saving is due to the lower energy consumption on the month resulting from data missing. 
 
-![](charge_filled_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](charge_filled_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 The saving distribution is as below showing the most savings would occur between \$4,000 to \$7,000 a month. 
 
-![](charge_filled_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](charge_filled_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 
 
