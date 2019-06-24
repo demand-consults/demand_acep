@@ -4,11 +4,11 @@
    contain the root `toctree` directive.
 
 ===========================
-`demand_acep` Documentation 
+`demand_acep` Documentation
 ===========================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :numbered:
    :caption: Contents:
 
@@ -29,4 +29,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
