@@ -6,6 +6,8 @@ output:
   pdf_document: default
 ---
 
+# This is the include section
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = F ,message = F, warning = F,fig.height= 12, fig.width= 15)
 library(readr)
