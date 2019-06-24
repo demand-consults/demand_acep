@@ -82,6 +82,8 @@ The density plot shows the distribution of the monthly peak power for each meter
 
 ARIMA predicted the peak power for the last 3 months, which is February, March, and April given the previous peak power data from November, 2017 to January, 2019. Since there are 2 months missing (November and December of 2018), the months used for the prediction were 13 months. Given the historical data of 13 months, the model predicts the coming 3 months and it is quite accurate as around 125 kW compared to the real values for these months, 114, 107, and 131 kW respectively. 
 
+
+
 ![](forecast_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 
@@ -136,6 +138,8 @@ It was expected that power for Wat3 would be around 68 kW for the last 3 months 
 
 ![](forecast_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
+
+
 # Forecast based on day
 
 For the comparison, forecastes based on day, were also plotted. The range between the upper and lower bound of forecast shows narrower than the one based on month. 
@@ -156,7 +160,6 @@ For the comparison, forecastes based on day, were also plotted. The range betwee
 There are total 413 days previously available since November 2017 till April 2019. Given the 404 days, rest of 10 days were predicted from 405th day to 413th day as below in the figure. 
 
 ![](forecast_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
-
 
 
 ## Wat1
