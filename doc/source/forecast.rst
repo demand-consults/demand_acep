@@ -8,8 +8,8 @@ Power (kW) for demand charge correlation
 These 4 meters have power (kW) correlated each other for the past 3 years. The correlations are various depending upon the comparisons. In general, power in ``PQ`` meter is mostly correlated with power in ``Wat3``. This founding is interesting as the more correlated, the more dependency resulting in less effective to address load reduction of having a virtual meter, are expected.
 
 
-.. image:: _images/unnamed-chunk-1-11.png
-   :target: _images/unnamed-chunk-1-11.png
+.. image:: _static/unnamed-chunk-1-11.png
+   :target: _static/unnamed-chunk-1-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -19,8 +19,8 @@ Past 3 years power trends of each meter (Nov. 2017 to Apr. 2019)
 Variances of power (kW) for each meter, verify the correlations found in the previous correlation plot.
 
 
-.. image:: _images/unnamed-chunk-2-11.png
-   :target: _images/unnamed-chunk-2-11.png
+.. image:: _static/unnamed-chunk-2-11.png
+   :target: _static/unnamed-chunk-2-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -87,8 +87,8 @@ Monthly maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-4-11.png
-   :target: _images/unnamed-chunk-4-11.png
+.. image:: _static/unnamed-chunk-4-11.png
+   :target: _static/unnamed-chunk-4-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -98,8 +98,8 @@ Density of maximum peak power (kW)
 The density plot shows the distribution of the monthly peak power for each meter. For ``PQ``\ , peak power around 125 kW is mostly prevalent, which means there is more probability that ``PQ`` peak power would be around 125 kW.
 
 
-.. image:: _images/unnamed-chunk-5-11.png
-   :target: _images/unnamed-chunk-5-11.png
+.. image:: _static/unnamed-chunk-5-11.png
+   :target: _static/unnamed-chunk-5-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -109,8 +109,8 @@ Prediction performance for the last 3 months
 ARIMA predicted the peak power for the last 3 months, which is February, March, and April given the previous peak power data from November, 2017 to January, 2019. Since there are 2 months missing (November and December of 2018), the months used for the prediction were 13 months. Given the historical data of 13 months, the model predicts the coming 3 months and it is quite accurate as around 125 kW compared to the real values for these months, 114, 107, and 131 kW respectively.
 
 
-.. image:: _images/unnamed-chunk-6-1.png
-   :target: _images/unnamed-chunk-6-1.png
+.. image:: _static/unnamed-chunk-6-1.png
+   :target: _static/unnamed-chunk-6-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -123,8 +123,8 @@ Monthly maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-7-11.png
-   :target: _images/unnamed-chunk-7-11.png
+.. image:: _static/unnamed-chunk-7-11.png
+   :target: _static/unnamed-chunk-7-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -132,8 +132,8 @@ Density of maximum peak power (kW)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-8-11.png
-   :target: _images/unnamed-chunk-8-11.png
+.. image:: _static/unnamed-chunk-8-11.png
+   :target: _static/unnamed-chunk-8-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -141,8 +141,8 @@ Prediction performance for the last 3 months
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-9-1.png
-   :target: _images/unnamed-chunk-9-1.png
+.. image:: _static/unnamed-chunk-9-1.png
+   :target: _static/unnamed-chunk-9-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -155,8 +155,8 @@ Monthly maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-10-1.png
-   :target: _images/unnamed-chunk-10-1.png
+.. image:: _static/unnamed-chunk-10-1.png
+   :target: _static/unnamed-chunk-10-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -164,8 +164,8 @@ Density of maximum peak power (kW)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-11-1.png
-   :target: _images/unnamed-chunk-11-1.png
+.. image:: _static/unnamed-chunk-11-1.png
+   :target: _static/unnamed-chunk-11-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -173,8 +173,8 @@ Prediction performance for the last 3 months
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-12-1.png
-   :target: _images/unnamed-chunk-12-1.png
+.. image:: _static/unnamed-chunk-12-1.png
+   :target: _static/unnamed-chunk-12-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -187,8 +187,8 @@ Monthly maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-13-1.png
-   :target: _images/unnamed-chunk-13-1.png
+.. image:: _static/unnamed-chunk-13-1.png
+   :target: _static/unnamed-chunk-13-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -196,8 +196,8 @@ Density of maximum peak power (kW)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-14-1.png
-   :target: _images/unnamed-chunk-14-1.png
+.. image:: _static/unnamed-chunk-14-1.png
+   :target: _static/unnamed-chunk-14-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -205,8 +205,8 @@ Prediction performance for the last 3 months
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-15-1.png
-   :target: _images/unnamed-chunk-15-1.png
+.. image:: _static/unnamed-chunk-15-1.png
+   :target: _static/unnamed-chunk-15-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -222,8 +222,8 @@ Daily maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-16-1.png
-   :target: _images/unnamed-chunk-16-1.png
+.. image:: _static/unnamed-chunk-16-1.png
+   :target: _static/unnamed-chunk-16-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -231,8 +231,8 @@ Density of maximum peak power (kW)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-17-1.png
-   :target: _images/unnamed-chunk-17-1.png
+.. image:: _static/unnamed-chunk-17-1.png
+   :target: _static/unnamed-chunk-17-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -242,8 +242,8 @@ Prediction performance for the last 10 days
 There are total 413 days previously available since November 2017 till April 2019. Given the 404 days, rest of 10 days were predicted from 405th day to 413th day as below in the figure.
 
 
-.. image:: _images/unnamed-chunk-18-1.png
-   :target: _images/unnamed-chunk-18-1.png
+.. image:: _static/unnamed-chunk-18-1.png
+   :target: _static/unnamed-chunk-18-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -254,8 +254,8 @@ Daily maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-19-1.png
-   :target: _images/unnamed-chunk-19-1.png
+.. image:: _static/unnamed-chunk-19-1.png
+   :target: _static/unnamed-chunk-19-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -263,8 +263,8 @@ Density of maximum peak power (kW)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-20-1.png
-   :target: _images/unnamed-chunk-20-1.png
+.. image:: _static/unnamed-chunk-20-1.png
+   :target: _static/unnamed-chunk-20-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -272,8 +272,8 @@ Prediction performance for the last 10 days
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-21-1.png
-   :target: _images/unnamed-chunk-21-1.png
+.. image:: _static/unnamed-chunk-21-1.png
+   :target: _static/unnamed-chunk-21-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -284,8 +284,8 @@ Daily maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-22-1.png
-   :target: _images/unnamed-chunk-22-1.png
+.. image:: _static/unnamed-chunk-22-1.png
+   :target: _static/unnamed-chunk-22-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -293,8 +293,8 @@ Density of maximum peak power (kW)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-23-1.png
-   :target: _images/unnamed-chunk-23-1.png
+.. image:: _static/unnamed-chunk-23-1.png
+   :target: _static/unnamed-chunk-23-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -302,8 +302,8 @@ Prediction performance for the last 10 days
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-24-1.png
-   :target: _images/unnamed-chunk-24-1.png
+.. image:: _static/unnamed-chunk-24-1.png
+   :target: _static/unnamed-chunk-24-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -314,8 +314,8 @@ Daily maximum peak power(kW) trend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-25-1.png
-   :target: _images/unnamed-chunk-25-1.png
+.. image:: _static/unnamed-chunk-25-1.png
+   :target: _static/unnamed-chunk-25-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -323,8 +323,8 @@ Density of maximum peak power (kW)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-26-1.png
-   :target: _images/unnamed-chunk-26-1.png
+.. image:: _static/unnamed-chunk-26-1.png
+   :target: _static/unnamed-chunk-26-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -332,7 +332,7 @@ Prediction performance for the last 10 days
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. image:: _images/unnamed-chunk-27-1.png
-   :target: _images/unnamed-chunk-27-1.png
+.. image:: _static/unnamed-chunk-27-1.png
+   :target: _static/unnamed-chunk-27-1.png
    :alt:
 :raw-html-m2r:`<!-- -->`
