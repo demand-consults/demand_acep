@@ -86,8 +86,8 @@ def test_data_impute_df():
 def test_data_impute_dict():
     test_df = extract_data(dirpath, filename)
     test_df = data_resample(test_df, sample_time='1T')
-    test_df = data_impute(test_df)
     test_df_dict = {'meter_1': test_df, 'meter_2': test_df, 'meter_3': test_df}
+    test_df_dict = data_impute(test_df_dict)
     dict_assert = []
     for meter in test_df_dict:
         dict_assert.append(test_df_dict[meter].notnull().values.all())
@@ -246,6 +246,7 @@ def test_build_interpolation():
 
 def test_compute_interpolation():
     test_df = extract_data(dirpath, filename)
+    test_df = data_resample(test_df, sample_time='1T')
     if isinstance(test_df, dict):
         for meter in test_df:
             assert (isinstance(test_df[meter], pd.DataFrame)), "Object passed in is not a Dataframe"
@@ -265,28 +266,16 @@ def test_compute_interpolation():
 
 def test_compute_interpolation_end_condition():
     test_df = extract_data(dirpath, filename)
-    if isinstance(test_df, dict):
-        for meter in test_df:
-            assert (isinstance(test_df[meter], pd.DataFrame)), "Object passed in is not a Dataframe"
-            # Add NaN to columns near the end of dataframe such that positions with NaN are larger than remaining values
-            # in dataframe. In this case choose 50 points before the last 10 points and assign NaN values to the columns
-            n_df = len(test_df[meter])
-            test_df[meter].iloc[n_df - 60: n_df - 50] = np.nan
-            if test_df[meter].isnull().values.any():
-                test_df[meter] = test_df[meter].apply(compute_interpolation)
-                assert (
-                    test_df[meter].notnull().values.all()), "Data imputations in Series not functioning properly " \
-                                                            "as data still contains NaN"
-    else:
-        assert (isinstance(test_df, pd.DataFrame)), "Object passed in is not a Dataframe"
-        # Add NaN to columns near the end of dataframe such that positions with NaN are larger than remaining values in
-        # dataframe. In this case choose 50 points before the last 10 points and assign NaN values to the columns
-        n_df = len(test_df)
-        test_df.iloc[n_df - 60: n_df - 50] = np.nan
-        if test_df.isnull().values.any():
-            test_df = test_df.apply(compute_interpolation)
-            assert (test_df.notnull().values.all()), "Data imputations in Series not functioning properly as data " \
-                                                     "still contains NaN values"
+    test_df = data_resample(test_df, sample_time='1T')
+    assert (isinstance(test_df, pd.DataFrame)), "Object passed in is not a Dataframe"
+    # Add NaN to columns near the end of dataframe such that positions with NaN are larger than remaining values in
+    # dataframe. In this case choose 100 points before the last 10 points and assign NaN values to the column
+    n_df = len(test_df)
+    test_df.iloc[n_df - 100: n_df - 10] = np.nan
+    if test_df.isnull().values.any():
+        test_df = test_df.apply(compute_interpolation)
+        assert (test_df.notnull().values.all()), "Data imputations in Series not functioning properly as data " \
+                                                 "still contains NaN values"
 
     return
 
