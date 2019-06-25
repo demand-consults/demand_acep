@@ -1,0 +1,9 @@
+* installing *source* package 'demand' ...
+** R
+** data
+** byte-compile and prepare package for lazy loading
+Error in library(readr) : there is no package called 'readr'
+Error : unable to load R code in package 'demand'
+ERROR: lazy loading failed for package 'demand'
+* removing 'C:/Users/Yohan_Min/DIRECT/demand/demand_acep/demand.Rcheck/demand'
+In R CMD INSTALL

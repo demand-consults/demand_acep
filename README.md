@@ -56,6 +56,35 @@ The module supports TDD and includes setup for automatic test runner. To begin d
 * As you make changes to the documentation in the `.rst` files, and re-save them, `grunt doc` automatically updates the `html` folder and changes can be viewed in the browser by refreshing it. 
 
 
+## Using R package `demand` for demand charge saving analysis
+
+An R package creates diverse plots per day, weekday, month and year for peak demand power consumption of several meters to support this project. These plots lead to benefit-cost analyses and cost saving plots. In addition, this package forecasts peak power demand using ARIMA on a daily and monthly basis. Correlation and a simple regression are also included. 
+
+To use ths package, follow the steps:
+
+1. Install `devtools`
+```
+install.packages("devtools")
+```
+
+2. Load the package 
+```
+library(devtools)
+```
+
+3. Install this package `demand`
+```
+install_github("reconjohn/demand")
+```
+
+3. Load the package 
+```
+library(demand)
+```
+
+Now you are all set!
+
+
 ## Release History
 
 * 0.0.1
