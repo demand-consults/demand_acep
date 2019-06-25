@@ -77,14 +77,14 @@ library(devtools)
 install_github("reconjohn/demand")
 ```
 
-3. Load the package 
+4. Load the package 
 ```
 library(demand)
 ```
 
 Now you are all set!
 
-## Brief description of demand charge using R package, `demand`
+**Brief description of demand charge using R package, `demand`**
 
 Using R package `demand`, peak demand, correlation, forecast, and demand charge were plotted. Refer to the followings for more details about demonstration of code from `demand` package and its results. 
 
