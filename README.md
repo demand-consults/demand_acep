@@ -86,13 +86,16 @@ Now you are all set!
 
 ## Brief description of demand charge using R package, `demand`
 
-Using R package `demand`, peak demand, correlation, forecast, and demand charge were plotted. Refer to the followings for more details. 
+Using R package `demand`, peak demand, correlation, forecast, and demand charge were plotted. Refer to the followings for more details about demonstration of code from `demand` package and its results. 
 
 * Peak demand plot for the 4 meters [here](https://github.com/demand-consults/demand_acep/blob/master/demand/scripts/plots.md)
+[code](https://github.com/demand-consults/demand_acep/blob/master/demand/scripts/plots.Rmd)
 
 * Peak demand correlation and forecasts [here](https://github.com/demand-consults/demand_acep/blob/master/demand/scripts/forecast.md)
+[code](https://github.com/demand-consults/demand_acep/blob/master/demand/scripts/forecast.Rmd)
 
 * Demand charge reduction by implementing a virtual meter [here](https://github.com/demand-consults/demand_acep/blob/master/demand/scripts/charge_filled.md)
+[code](https://github.com/demand-consults/demand_acep/blob/master/demand/scripts/charge_filled.Rmd)
 
 
 
