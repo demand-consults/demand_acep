@@ -174,10 +174,6 @@ def extract_csv_for_date(config, data_date):
     else:
         print("Path not found: " + data_path)
                 
-    # Set the data imputation parameters
-    interp_method = config.INTERP_METHOD
-    interp_order = config.INTERP_ORDER
-    
     # Perform data imputation wherrever needed
     # print(meter_collection)
     meter_collection = data_impute(meter_collection)

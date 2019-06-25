@@ -6,5 +6,7 @@ These 4 meters have power (kW) correlated each other for the past 3 years. The c
 
 
 .. toctree::
+   :maxdepth: 2
+   :caption: Power (kW) association of 4 meters and forecasts
 
-    correlation
+   forecast
