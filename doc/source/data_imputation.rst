@@ -52,13 +52,13 @@ An example of a long duration missing data imputation is shown in the jupyter no
 
 **Before Filling**
 
-.. image:: _static/total_profile_missing.png
+.. image:: _static/total_profile_missing_correct.png
    :width: 400 px
    :align: center
 
 **After Filling**
 
-.. image:: _static/total_profile_filled.png
+.. image:: _static/total_profile_filled_correct.png
    :width: 400 px
    :align: center
 
