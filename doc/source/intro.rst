@@ -10,7 +10,7 @@ resolution power meter data to easy access to data for data analytics and resear
 The quick overview of the data pipeline can be seen below:
 
 
-.. image:: _static/demand_acep_poster_cei_day_final.jpg
+.. image:: _static/demand_acep_poster_DIRECT_final.jpg
    :width: 800 px
 
 
