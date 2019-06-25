@@ -32,8 +32,8 @@ def parallel_copy_data_for_date(config, data_date):
 
     Returns
     -------
-    int
-        Description of anonymous integer return value.
+    None - prints the number of rows copied into the database for the particular day.
+
     """    
     print(data_date)
     # Look for the pickle and file and use pandas_to_sql to insert the data 
@@ -98,8 +98,8 @@ def parallel_copy_data_for_dates(config, start, end):
  
     Returns
     -------
-    int
-        Description of anonymous integer return value.
+    None
+    
     """
     
     # Get the list of dates within the range and convert to the format we want
