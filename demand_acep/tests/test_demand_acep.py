@@ -40,6 +40,7 @@ filename = 'PokerFlatResearchRange-PokerFlat-PkFltM3SciEaDel@2019-01-03T093004Z@
 # Test config 
 import test_config as config
 
+
 def test_extract_data():
     test_df = extract_data(dirpath, filename)
     column_name = test_df.columns.tolist()[0]
@@ -72,78 +73,94 @@ def test_data_resample():
     return
 
 
-def test_data_impute():
+def test_data_impute_df():
     test_df = extract_data(dirpath, filename)
     test_df = data_resample(test_df, sample_time='1T')
     test_df = data_impute(test_df)
+    assert (test_df.notnull().values.all()), "Data imputations in Dataframe not functioning properly as data " \
+                                             "still contains NaN"
+
+    return
+
+
+def test_data_impute_dict():
+    test_df = extract_data(dirpath, filename)
+    test_df = data_resample(test_df, sample_time='1T')
+    test_df_dict = {'meter_1': test_df, 'meter_2': test_df, 'meter_3': test_df}
+    test_df_dict = data_impute(test_df_dict)
     dict_assert = []
-    if isinstance(test_df, dict):
-        for meter in test_df:
-            dict_assert.append(test_df[meter].notnull().values.all())
-        assert (all(val for val in dict_assert)), "Data imputations in dictionary not functioning properly as data " \
-                                                  "still contains NaN"
-    else:
-        assert (test_df.notnull().values.all()), "Data imputations in Dataframe not functioning properly as data " \
-                                                 "still contains NaN"
+    for meter in test_df_dict:
+        dict_assert.append(test_df_dict[meter].notnull().values.all())
+
+    assert (all(val for val in dict_assert)), "Data imputations in dictionary not functioning properly as data " \
+                                              "still contains NaN"
 
     return
 
 
 def test_extract_csv_for_date_badIn():
-    
-    # Test that bad input throws the right kind of exceptions 
-    
+
+    # Test that bad input throws the right kind of exceptions
+
     # DATA_ROOT attribute does not exist
     config_1 = importlib.reload(config)
     vars(config_1).pop('DATA_ROOT', None)
-    # Correct date 
+    # Correct date
     data_date_1 = "07/01/2018"
-    
+
     #print(config_1.DATA_ROOT)
-    
+
     with pytest.raises(AttributeError):
         extract_csv_for_date(config_1, data_date_1)
-    
+
     config_2 = importlib.reload(config)
     # Bad data_root
     config_2.DATA_ROOT = "/not_a_directory"
-    # Correct date 
+    # Correct date
     data_date_2 = "07/01/2018"
-    
+
     #print(config.DATA_ROOT)
-    
+
     with pytest.raises(NotADirectoryError):
         extract_csv_for_date(config_2, data_date_2)
-    
+
     config_3 = importlib.reload(config)
     data_date_3 = "07/01/2018"
     # No meter_channel_dict
     vars(config_3).pop('METER_CHANNEL_DICT', None)
-    
+
     with pytest.raises(AttributeError):
         extract_csv_for_date(config_3, data_date_3)
-    
+
     config_4 = importlib.reload(config)
     data_date_4 = "07/01/2018"
-    
+
     # No SAMPLE_TIME
     vars(config_4).pop('SAMPLE_TIME', None)
-    
+
     with pytest.raises(AttributeError):
         extract_csv_for_date(config_4, data_date_4)
-        
-    
+
+
     config_5 = importlib.reload(config)
     data_date_5 = "10/01/2017"
-    
+
     with pytest.raises(ValueError):
         extract_csv_for_date(config_5, data_date_5)
     
-    return 
+    config_6 = importlib.reload(config)
+    data_date_6 = "10/01/2019"
+    
+    with pytest.raises(ValueError):
+        extract_csv_for_date(config_6, data_date_6)
+
+
+    return
+
 
 
 def test_extract_csv_for_date():
-    # Test date 
+    # Test date
     test_data_date = '2019/01/03'
     # Re-import the config to make changes for this test
     test_config1 = importlib.reload(config)
@@ -162,13 +179,13 @@ def test_extract_csv_for_date():
     assert(checkEqual(correct_names, list(test_csv_names.values())), "The output csv names do not match the expected name format - meter_name@date@freq.csv")
 
     # Test the output values
-    # Read in the correct csvs 
+    # Read in the correct csvs
     correct_dfs = {}
     for dirpath, dirnames, correct_csvfiles in os.walk(correct_csv_path, topdown=True):
         for csvfilename in correct_csvfiles:
             csvfile_abspath = os.path.join(correct_csv_path, csvfilename)
             correct_dfs[csvfilename] = pd.read_csv(csvfile_abspath, header=None)
-    
+
     test_csv_path = os.path.join(test_config1.DATA_ROOT, test_data_date)
     test_dfs = {}
     for dirpath, dirnames, test_files in os.walk(test_csv_path, topdown=True):
@@ -179,13 +196,13 @@ def test_extract_csv_for_date():
                 # Remove the NA columns - these are introduced since we have only two channels
                 test_dfs[filename].dropna(axis=1, inplace=True)
 
-    # Check if the dataframes in correct_dfs and test_dfs are equal 
+    # Check if the dataframes in correct_dfs and test_dfs are equal
     for csvname in correct_dfs:
         correct_df = correct_dfs[csvname]
         test_df = test_dfs[csvname]
         pd.testing.assert_frame_equal(test_df, correct_df)
 
-    return 
+    return
 
 
 def test_build_interpolation():
@@ -231,11 +248,13 @@ def test_build_interpolation():
                                                                                  "through interpolation"
 
     assert (y_interp.dtype == 'float64'), "The output from this function should be numpy array"
+
     return
 
 
 def test_compute_interpolation():
     test_df = extract_data(dirpath, filename)
+    test_df = data_resample(test_df, sample_time='1T')
     if isinstance(test_df, dict):
         for meter in test_df:
             assert (isinstance(test_df[meter], pd.DataFrame)), "Object passed in is not a Dataframe"
@@ -249,6 +268,22 @@ def test_compute_interpolation():
             test_df = test_df.apply(compute_interpolation)
             assert (test_df.notnull().values.all()), "Data imputations in Series not functioning properly as data " \
                                                      "still contains NaN"
+
+    return
+
+
+def test_compute_interpolation_end_condition():
+    test_df = extract_data(dirpath, filename)
+    test_df = data_resample(test_df, sample_time='1T')
+    assert (isinstance(test_df, pd.DataFrame)), "Object passed in is not a Dataframe"
+    # Add NaN to columns near the end of dataframe such that positions with NaN are larger than remaining values in
+    # dataframe. In this case choose 100 points before the last 10 points and assign NaN values to the column
+    n_df = len(test_df)
+    test_df.iloc[n_df - 100: n_df - 10] = np.nan
+    if test_df.isnull().values.any():
+        test_df = test_df.apply(compute_interpolation)
+        assert (test_df.notnull().values.all()), "Data imputations in Series not functioning properly as data " \
+                                                 "still contains NaN values"
 
     return
 
@@ -269,6 +304,7 @@ def test_long_missing_data_prep():
     assert (np.all(np.equal(diff_test, time_1T_ns))), "DateTimeIndex intervals not properly computed in function"
 
     return
+
 
 # Taken from https://stackoverflow.com/a/12813909/1328232
 # To check the equality of two lists

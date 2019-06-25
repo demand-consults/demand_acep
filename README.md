@@ -11,7 +11,7 @@ The `demand_acep` package implements a data-pipeline. The data-pipeline performs
 * **Transform**: The data is down-sampled to a lower resolution (1 minute default), missing data is filled, individual channel data is combined with other channels to create a dataframe down-sampled, filled dataframe per day per meter, and this dataframe is exported to a csv file. So, we have for each day of data, a csv file for each meter containing the data for all channels at a lower resolution. 
 * **Load**: All the down-sampled data is loaded (copied not inserted for speed) on to the timeseries database, TimescaleDB. The data was copied back from the database to perform the data imputation for the missing days and re-copied to create the complete data. The ETL process is summarised in the poster shown below. 
 
-<img src="https://github.com/demand-consults/demand_acep/blob/master/doc/source/_static/demand_acep_poster_cei_day_final.jpg" width="80%">
+<img src="https://github.com/demand-consults/demand_acep/blob/master/doc/source/_static/demand_acep_poster_DIRECT_final.jpg" width="80%">
 
 All or some steps can be re-used or repeated as desired. Further analysis using the complete data was performed and results have been in presented in the documentation. 
 
