@@ -17,8 +17,8 @@ Power (kW) trend of a day for days (Day 1 to Day 31) per month
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-2-12.png
-   :target: _images/unnamed-chunk-2-12.png
+.. image:: _static/unnamed-chunk-2-12.png
+   :target: _static/unnamed-chunk-2-12.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -26,8 +26,8 @@ Power (kW) trend of a day for weekdays (Sunday to Saturday) per month
 ---------------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-3-11.png
-   :target: _images/unnamed-chunk-3-11.png
+.. image:: _static/unnamed-chunk-3-11.png
+   :target: _static/unnamed-chunk-3-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -35,8 +35,8 @@ Power (kW) trend of a day for months (Jan. to Dec.) per year
 ------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-4-12.png
-   :target: _images/unnamed-chunk-4-12.png
+.. image:: _static/unnamed-chunk-4-12.png
+   :target: _static/unnamed-chunk-4-12.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -44,8 +44,8 @@ Power (kW) trend of a month for months (Jan. to Dec.) per year
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-5-12.png
-   :target: _images/unnamed-chunk-5-12.png
+.. image:: _static/unnamed-chunk-5-12.png
+   :target: _static/unnamed-chunk-5-12.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -56,8 +56,8 @@ Power (kW) trend of a day for days (Day 1 to Day 31) per month
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-6-11.png
-   :target: _images/unnamed-chunk-6-11.png
+.. image:: _static/unnamed-chunk-6-11.png
+   :target: _static/unnamed-chunk-6-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -65,8 +65,8 @@ Power (kW) trend of a day for weekdays (Sunday to Saturday) per month
 ---------------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-7-12.png
-   :target: _images/unnamed-chunk-7-12.png
+.. image:: _static/unnamed-chunk-7-12.png
+   :target: _static/unnamed-chunk-7-12.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -74,8 +74,8 @@ Power (kW) trend of a day for months (Jan. to Dec.) per year
 ------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-8-12.png
-   :target: _images/unnamed-chunk-8-12.png
+.. image:: _static/unnamed-chunk-8-12.png
+   :target: _static/unnamed-chunk-8-12.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -83,8 +83,8 @@ Power (kW) trend of a month for months (Jan. to Dec.) per year
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-9-11.png
-   :target: _images/unnamed-chunk-9-11.png
+.. image:: _static/unnamed-chunk-9-11.png
+   :target: _static/unnamed-chunk-9-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -95,8 +95,8 @@ Power (kW) trend of a day for days (Day 1 to Day 31) per month
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-10-11.png
-   :target: _images/unnamed-chunk-10-11.png
+.. image:: _static/unnamed-chunk-10-11.png
+   :target: _static/unnamed-chunk-10-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -104,8 +104,8 @@ Power (kW) trend of a day for weekdays (Sunday to Saturday) per month
 ---------------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-11-11.png
-   :target: _images/unnamed-chunk-11-11.png
+.. image:: _static/unnamed-chunk-11-11.png
+   :target: _static/unnamed-chunk-11-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -113,8 +113,8 @@ Power (kW) trend of a day for months (Jan. to Dec.) per year
 ------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-12-11.png
-   :target: _images/unnamed-chunk-12-11.png
+.. image:: _static/unnamed-chunk-12-11.png
+   :target: _static/unnamed-chunk-12-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -122,8 +122,8 @@ Power (kW) trend of a month for months (Jan. to Dec.) per year
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-13-11.png
-   :target: _images/unnamed-chunk-13-11.png
+.. image:: _static/unnamed-chunk-13-11.png
+   :target: _static/unnamed-chunk-13-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -134,8 +134,8 @@ Power (kW) trend of a day for days (Day 1 to Day 31) per month
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-14-11.png
-   :target: _images/unnamed-chunk-14-11.png
+.. image:: _static/unnamed-chunk-14-11.png
+   :target: _static/unnamed-chunk-14-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -143,8 +143,8 @@ Power (kW) trend of a day for weekdays (Sunday to Saturday) per month
 ---------------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-15-11.png
-   :target: _images/unnamed-chunk-15-11.png
+.. image:: _static/unnamed-chunk-15-11.png
+   :target: _static/unnamed-chunk-15-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -152,8 +152,8 @@ Power (kW) trend of a day for months (Jan. to Dec.) per year
 ------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-16-11.png
-   :target: _images/unnamed-chunk-16-11.png
+.. image:: _static/unnamed-chunk-16-11.png
+   :target: _static/unnamed-chunk-16-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
 
@@ -161,7 +161,7 @@ Power (kW) trend of a month for months (Jan. to Dec.) per year
 --------------------------------------------------------------
 
 
-.. image:: _images/unnamed-chunk-17-11.png
-   :target: _images/unnamed-chunk-17-11.png
+.. image:: _static/unnamed-chunk-17-11.png
+   :target: _static/unnamed-chunk-17-11.png
    :alt:
 :raw-html-m2r:`<!-- -->`
