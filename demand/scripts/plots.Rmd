@@ -16,8 +16,7 @@ library(lubridate)
 library(forcats)
 library(pander)
 library(stringr)
-
-source("../../demand_charge/power_plot.R")
+library(demand)
 ```
 
          

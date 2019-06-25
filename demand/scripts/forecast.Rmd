@@ -21,8 +21,7 @@ library(broom)
 library('quantmod')
 library(corrplot)
 library(forecast)
-
-source("../../demand_charge/forecast.R")
+library(demand)
 ```
 
 

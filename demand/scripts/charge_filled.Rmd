@@ -18,9 +18,7 @@ library(pander)
 library(stringr)
 library(kableExtra)
 library(forecast)
-
-source("../../demand_charge/charge.R")
-source("../../demand_charge/forecast.R")
+library(demand)
 
 ```
 
