@@ -5,7 +5,7 @@
 
 
 ## Overview 
-The `demand_acep` package implements a data-pipeline. The data-pipeline performs three tasks - Extraction, Transformation and Loading (ETL). 
+The `demand_acep` package implements a data-pipeline. The data-pipeline performs three tasks - Extraction, Transformation and Loading (ETL). The detailed documentation is [here](https://demand-acep.readthedocs.io/en/latest/) and a brief summary is as under:
 
 * **Extract**: The high-resolution (~7 Hz) power meter data for each meter and each channel is read from the NetCDF files to a pandas dataframe. 
 * **Transform**: The data is down-sampled to a lower resolution (1 minute default), missing data is filled, individual channel data is combined with other channels to create a dataframe down-sampled, filled dataframe per day per meter, and this dataframe is exported to a csv file. So, we have for each day of data, a csv file for each meter containing the data for all channels at a lower resolution. 
@@ -13,7 +13,7 @@ The `demand_acep` package implements a data-pipeline. The data-pipeline performs
 
 <img src="https://github.com/demand-consults/demand_acep/blob/master/doc/source/_static/demand_acep_poster_DIRECT_final.jpg" width="80%">
 
-All or some steps can be re-used or repeated as desired. Further analysis using the complete data was performed and results have been in presented in the documentation. 
+All or some steps can be re-used or repeated as desired. Further analysis using the complete data was performed and results have been in presented in the [documentation](https://demand-acep.readthedocs.io/en/latest/). 
 
 
 ## Installation
