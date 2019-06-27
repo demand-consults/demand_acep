@@ -14,6 +14,7 @@ import pytest
 import copy
 import importlib
 import unittest
+import io
 
 from itertools import groupby
 from operator import itemgetter
@@ -201,6 +202,47 @@ def test_extract_csv_for_date():
         correct_df = correct_dfs[csvname]
         test_df = test_dfs[csvname]
         pd.testing.assert_frame_equal(test_df, correct_df)
+    
+    # Test the other conditions 
+    # 1. When path is not found
+    
+    # Define the inputs
+    # Test date
+    test_data_date2 = '2019/01/04'
+    # Re-import the config to make changes for this test
+    test_config2 = importlib.reload(config)
+    # Get the new DATA_ROOT to the location of the test data
+    test_config2.DATA_ROOT = os.path.join(test_config2.DATA_ROOT, 'part_data')
+    # Redirect the console output to test the print out statement 
+    # Adapted from SO answer here: https://stackoverflow.com/a/34738440/1328232
+    capturedOutput = io.StringIO()                  # Create StringIO object
+    sys.stdout = capturedOutput                     #  and redirect stdout.
+    # Run the test function with the inputs
+    test_csv_names2 = extract_csv_for_date(test_config2, test_data_date2)
+    assert(("Path not found:" in capturedOutput.getvalue()), "Path not found not printed when path isn't available")
+        # Reset redirect
+    sys.stdout = sys.__stdout__
+
+    # 2. When no files at path
+    
+    # Define the inputs
+    # Test date
+    test_data_date3 = '2019/01/05'
+    # Re-import the config to make changes for this test
+    test_config3 = importlib.reload(config)
+    # Get the new DATA_ROOT to the location of the test data
+    test_config3.DATA_ROOT = os.path.join(test_config3.DATA_ROOT, 'part_data')
+    # Redirect the console output to test the print out statement 
+    # Adapted from SO answer here: https://stackoverflow.com/a/34738440/1328232
+    capturedOutput2 = io.StringIO()                  # Create StringIO object
+    sys.stdout = capturedOutput2                     #  and redirect stdout.
+    # Run the test function with the inputs
+    test_csv_names3 = extract_csv_for_date(test_config3, test_data_date3)
+    assert(("No files found for day:" in capturedOutput2.getvalue()), "No files found for day not printed when files aren't available")
+    # Reset redirect
+    sys.stdout = sys.__stdout__
+
+
 
     return
 
